@@ -41,6 +41,7 @@ const Verify = () => {
             <RequestBox
               businessName={item.businessName}
               seller={item.userName}
+              url={item.imageUrl}
               onPress={() => navigation.navigate("verify-detail", { item })}
             />
           ))}

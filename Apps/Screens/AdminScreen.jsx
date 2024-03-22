@@ -6,7 +6,7 @@ import AdminProfile from "./Admin/AdminProfile";
 export default function AdminScreen() {
   return (
     <View className="flex-1">
-      <AdminProfile/>
+      <AdminProfile />
       <AdminNavigation />
     </View>
   );
