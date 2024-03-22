@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { db } from "../firebase";
+import { getDocs, collection, query, where } from "firebase/firestore";
+import { useAuth } from "../context";
 import {
   View,
   Text,
@@ -7,11 +11,8 @@ import {
   Alert,
   StyleSheet,
   Image,
+  ToastAndroid,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { db } from "../firebase";
-import { getDocs, collection, query, where } from "firebase/firestore";
-import { useAuth } from "../context";
 
 export default function LoginScreen() {
   const { setRole, setUserName, setEmail } = useAuth();
@@ -25,6 +26,7 @@ export default function LoginScreen() {
       const q = query(collection(db, "users"), where("email", "==", email));
       const snapshot = await getDocs(q);
       if (snapshot.empty) {
+        ToastAndroid.show("Error! Please try again later", ToastAndroid.SHORT);
         console.log("Failed to log in");
       } else {
         snapshot.forEach((doc) => {
@@ -39,6 +41,7 @@ export default function LoginScreen() {
           } else {
             navigation.navigate("Seller");
           }
+          ToastAndroid.show("Logged in successfully!", ToastAndroid.SHORT);
           setRoleUser(doc.data().role);
         });
       }

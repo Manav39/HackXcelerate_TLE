@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
-  const [isApproved, setIsApproved] = useState(false);
+  const [isApproved, setIsApproved] = useState(true);
   const [waitingForConfirmation, setWaitingForConfirmation] = useState(false);
 
   return (

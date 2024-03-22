@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, ScrollView } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet, ScrollView, TouchableOpacity, Image } from "react-native";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../../context";
+import * as ImagePicker from 'expo-image-picker';
 
 const AddProduct = () => {
   const { email, userName } = useAuth();
   const [productName, setProductName] = useState("");
+  const [ingredients, setIngredients] = useState("");
   const [quantity, setQuantity] = useState("");
   const [imageURL, setImageURL] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState(null);
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -21,6 +24,7 @@ const AddProduct = () => {
         quantity: quantity,
         imageURL: imageURL,
         category: category,
+        ingredients: ingredients,
         email: email,
         userName: userName,
         price: price,
@@ -32,6 +36,19 @@ const AddProduct = () => {
       console.error("Error adding product to Firestore: ", error);
     }
   };
+  
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
 
   const clearForm = () => {
     setProductName("");
@@ -40,38 +57,64 @@ const AddProduct = () => {
     setDescription("");
     setCategory("");
     setPrice("");
+    setImage(null);
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.heading}>Create a new Product</Text>
-
       <View style={styles.formContainer}>
+        <Text style={styles.heading}>Create a new Product</Text>
+        
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Name of Product</Text>
           <TextInput
             style={styles.input}
             value={productName}
+            borderColor='#FC6736'
             onChangeText={setProductName}
             placeholder="Enter product name"
           />
         </View>
 
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: "#FC6736", borderRadius: 8 }]}
+          onPress={pickImage}
+        >
+          <Text style={{ color: "#ffffff", textAlign: "center" }}>Add Images of the Product</Text>
+        </TouchableOpacity>
+        {image && (
+          <Image source={{ uri: image }} style={{ width: 200, height: 150, borderRadius: 10, marginVertical: 10 }} />
+        )}
+
         <View style={styles.inputGroup}>
-          <Text style={styles.label}>Image URL</Text>
+          <Text style={styles.label}>Category</Text>
           <TextInput
             style={styles.input}
-            value={imageURL}
-            onChangeText={setImageURL}
-            placeholder="Enter image URL"
+            value={category}
+            borderColor='#FC6736'
+            onChangeText={setCategory}
+            placeholder="Enter category"
+          />
+        </View>
+
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Ingredients of Product</Text>
+          <TextInput
+            style={[styles.input, { height: 60 }]}
+            value={ingredients}
+            borderColor='#FC6736'
+            onChangeText={setIngredients}
+            placeholder="Enter product ingredients"
+            multiline
           />
         </View>
 
         <View style={styles.inputGroup}>
           <Text style={styles.label}>Description of Product</Text>
           <TextInput
-            style={[styles.input, { height: 100 }]}
+            style={[styles.input, { height: 80 }]}
             value={description}
+            borderColor='#FC6736'
             onChangeText={setDescription}
             placeholder="Enter product description"
             multiline
@@ -84,18 +127,9 @@ const AddProduct = () => {
             style={styles.input}
             value={price}
             onChangeText={setPrice}
+            borderColor='#FC6736'
             placeholder="Enter price"
             keyboardType="numeric"
-          />
-        </View>
-
-        <View style={styles.inputGroup}>
-          <Text style={styles.label}>Category</Text>
-          <TextInput
-            style={styles.input}
-            value={category}
-            onChangeText={setCategory}
-            placeholder="Enter category"
           />
         </View>
 
@@ -104,13 +138,14 @@ const AddProduct = () => {
           <TextInput
             style={styles.input}
             value={quantity}
+            borderColor='#FC6736'
             onChangeText={setQuantity}
             placeholder="Enter quantity"
             keyboardType="numeric"
           />
         </View>
 
-        <Button title="Add Product" onPress={handleAddProduct} />
+        <Button title="Add Product" color='#FC6736' onPress={handleAddProduct} />
 
         {successMessage ? <Text style={styles.successMessage}>{successMessage}</Text> : null}
       </View>
@@ -125,12 +160,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   heading: {
+    marginBottom: 20,
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
     textAlign: 'center',
   },
   formContainer: {
+    marginTop:30,
     backgroundColor: '#fff',
     padding: 20,
     borderRadius: 10,
@@ -156,6 +192,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     fontSize: 16,
+  },
+  button: {
+    padding: 15,
+    marginBottom: 10,
   },
   successMessage: {
     color: 'green',

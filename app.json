@@ -38,6 +38,13 @@
         {
           "photosPermission": "Allow Apna Kitchen to access your media"
         }
+      ],
+      [
+        "@stripe/stripe-react-native",
+        {
+          "merchantIdentifier":"",
+          "enableGooglePay": true
+        }
       ]
     ]
   }
