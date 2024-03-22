@@ -25,7 +25,7 @@ const RequestBox = ({ businessName, seller, url, onPress }) => {
           style={{
             flexDirection: "column",
             marginTop: 25,
-            marginLeft: 20,
+            marginLeft: 10,
             backgroundColor: "#007bff",
             height: 25,
             width: 25,
@@ -33,7 +33,7 @@ const RequestBox = ({ businessName, seller, url, onPress }) => {
           }}
         >
           <Ionicons
-            className="ml-10"
+            className="ml-0"
             name="chevron-forward"
             size={24}
             color="white"
