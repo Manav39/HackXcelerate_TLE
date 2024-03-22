@@ -12,10 +12,6 @@ const stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    // <View className="flex items-center justify-center bg-white">
-    //   <SplashScreen />
-    //   <StatusBar style="auto" />
-    // </View>
     <AuthProvider>
       <NavigationContainer>
         <stack.Navigator
@@ -28,7 +24,6 @@ export default function App() {
           <stack.Screen name="Buyer" component={BuyerScreen} />
           <stack.Screen name="Admin" component={AdminScreen} />
           <stack.Screen name="Seller" component={SellerScreen} />
-          <stack.Screen name="ProductDetails" component={ProductDetails} />
         </stack.Navigator>
       </NavigationContainer>
     </AuthProvider>

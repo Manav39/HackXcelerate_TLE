@@ -7,6 +7,8 @@ import ExploreScreen from "../Screens/Buyer/ExploreScreen";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { Text } from "react-native";
+import HomeScreenStackNavigation from "./HomeScreenStackNavigation";
+import ExploreScreenNavigationScreen from "./ExploreScreenNavigation";
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigation() {
@@ -14,7 +16,7 @@ export default function TabNavigation() {
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen
         name="home"
-        component={HomeScreen}
+        component={HomeScreenStackNavigation}
         options={{
           tabBarLabel: ({ color }) => (
             <Text style={{ color: color, fontSize: 12, marginBottom: 3 }}>
@@ -28,7 +30,7 @@ export default function TabNavigation() {
       />
       <Tab.Screen
         name="explore"
-        component={ExploreScreen}
+        component={ExploreScreenNavigationScreen}
         options={{
           tabBarLabel: ({ color }) => (
             <Text style={{ color: color, fontSize: 12, marginBottom: 3 }}>

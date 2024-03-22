@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "../../firebase";
+import DisplayItemList from "./DisplayItemList";
 
 export default function ExploreScreen({ navigation }) {
   const [products, setProducts] = useState([]);
@@ -20,24 +21,25 @@ export default function ExploreScreen({ navigation }) {
   };
   console.log("Hello ", products);
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Explore </Text>
-      {products &&
-        products.map((product, index) => (
-          <TouchableOpacity
-            key={index}
-            onPress={() => handleProductPress(product)}
-          >
-            <View style={styles.card}>
-              <Image source={{ uri: product.imageURL }} style={styles.image} />
-              <View style={styles.details}>
-                <Text style={styles.productName}>{product.productName}</Text>
-                <Text style={styles.price}>Price: ${product.price}</Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-        ))}
-    </View>
+    // <View style={styles.container}>
+    //   <Text style={styles.heading}>Explore </Text>
+    //   {products &&
+    //     products.map((product, index) => (
+    //       <TouchableOpacity
+    //         key={index}
+    //         onPress={() => handleProductPress(product)}
+    //       >
+    //         <View style={styles.card}>
+    //           <Image source={{ uri: product.imageURL }} style={styles.image} />
+    //           <View style={styles.details}>
+    //             <Text style={styles.productName}>{product.productName}</Text>
+    //             <Text style={styles.price}>Price: ${product.price}</Text>
+    //           </View>
+    //         </View>
+    //       </TouchableOpacity>
+    //     ))}
+    // </View>
+    <DisplayItemList itemList={products} />
   );
 }
 
