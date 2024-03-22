@@ -1,55 +1,69 @@
-import React from 'react'
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
-import QueryBox from './QueryBox' // Import the RequestBox component
-import { query } from 'firebase/firestore'
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+import QueryBox from "./QueryBox"; // Import the RequestBox component
+import { db } from "../../firebase";
+import { getDocs, collection, query, where } from "firebase/firestore";
+import { useNavigation } from "@react-navigation/native";
 
 const Queries = () => {
   // Dummy data for requests (business names)
+  const navigation = useNavigation();
+  const [queryDetails, setQueryDetails] = useState([]);
   const queries = [
-    { id: 1, QueryName: 'QueryName 1' },
-    { id: 2, QueryName: 'QueryName 2' },
-    { id: 3, QueryName: 'QueryName 3' },
-    { id: 4, QueryName: 'QueryName 4' },
-    { id: 5, QueryName: 'QueryName 5' },
-    { id: 6, QueryName: 'QueryName 6' },
-  ]
+    { id: 1, QueryName: "QueryName 1" },
+    { id: 2, QueryName: "QueryName 2" },
+    { id: 3, QueryName: "QueryName 3" },
+    { id: 4, QueryName: "QueryName 4" },
+    { id: 5, QueryName: "QueryName 5" },
+    { id: 6, QueryName: "QueryName 6" },
+  ];
 
-  const handleQueryPress = (QueryName) => {
-    // Handle press for a request (e.g., navigate to details screen)
-    console.log('Pressed on query:', QueryName)
-  }
+  const getQueryDetails = async () => {
+    setQueryDetails("");
+    const q = query(collection(db, "userquery"));
+    const snapshot = await getDocs(q);
+    snapshot.forEach((doc) => {
+      setQueryDetails((queryDetails) => [...queryDetails, doc.data()]);
+      console.log(doc.data());
+    });
+  };
+
+  useEffect(() => {
+    getQueryDetails();
+  }, []);
 
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Queries</Text>
       <ScrollView style={styles.scrollContainer}>
-        {queries.map((query) => (
-          <QueryBox
-            key={query.id}
-            QueryName={query.QueryName}
-            onPress={() => handleQueryPress(query.QueryName)}
-          />
-        ))}
+        {queryDetails &&
+          queryDetails.map((item) => (
+            <QueryBox
+              subject={item.subject}
+              useremail={item.useremail}
+              onPress={() => navigation.navigate("query-detail", { item })}
+            />
+          ))}
       </ScrollView>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: "#ffffff",
   },
   heading: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
   scrollContainer: {
     flex: 1,
   },
-})
+});
 
-export default Queries
+export default Queries;
