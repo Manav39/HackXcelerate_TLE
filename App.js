@@ -7,7 +7,6 @@ import BuyerScreen from "./Apps/Screens/BuyerScreen";
 import AdminScreen from "./Apps/Screens/AdminScreen";
 import SellerScreen from "./Apps/Screens/SellerScreen";
 import { AuthProvider } from "./Apps/context";
-import ProductDetails from "./Apps/ProductDetails";
 const stack = createNativeStackNavigator();
 
 export default function App() {
