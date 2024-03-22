@@ -45,7 +45,7 @@ export default function LoginScreen() {
       <View style={{ marginLeft: 50 }}>
         <Image source={require("../../assets/images/login.png")} style={styles.image} />
       </View>
-      <Text style={styles.heading}>Email</Text>
+      <Text style={styles.heading}>Login</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
