@@ -6,6 +6,7 @@ import HomeScreen from "../Screens/Buyer/HomeScreen";
 import BuyerNotify from "../Screens/Buyer/BuyerNotify";
 import UserQuery from "../Screens/Buyer/UserQuery";
 import CategoryListItem from "../Screens/Buyer/CategoryListItem";
+import ViewQueryAnswer from "../Screens/Buyer/ViewQueryAnswer";
 
 const stack = createNativeStackNavigator();
 
@@ -14,6 +15,7 @@ export default function HomeScreenStackNavigation() {
     <stack.Navigator screenOptions={{ headerShown: false }}>
       <stack.Screen name="home" component={HomeScreen} />
       <stack.Screen name="notify" component={BuyerNotify} />
+      <stack.Screen name="answer" component={ViewQueryAnswer} />
       <stack.Screen name="query" component={UserQuery} />
       <stack.Screen
         name="item-list"

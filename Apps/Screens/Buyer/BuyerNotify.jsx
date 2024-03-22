@@ -1,18 +1,34 @@
-import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { db } from "../../firebase";
+import { getDocs, collection, query, where } from "firebase/firestore";
+import { useAuth } from "../../context";
+import { Feather } from "@expo/vector-icons";
 
 const BuyerNotify = () => {
-  const navigation = useNavigation()
+  const { email } = useAuth();
+  const [answers, setAnswers] = useState([]);
+  const navigation = useNavigation();
   // Dummy data for statistics
-  const statsData = [
-    { label: 'Requests', value: 25 },
-    { label: 'Sellers', value: 10 },
-    { label: 'Products', value: 50 },
-    { label: 'Users', value: 100 },
-    { label: 'Revenue', value: '$5000' },
-    { label: 'Messages', value: 30 },
-  ]
+
+  const getNotifications = async () => {
+    setAnswers("");
+    const q = query(
+      collection(db, "adminanswers"),
+      where("useremail", "==", email)
+    );
+    const snapshot = await getDocs(q);
+    snapshot.forEach((doc) => {
+      setAnswers((answers) => [...answers, doc.data()]);
+      console.log(doc.data());
+    });
+    console.log("World");
+  };
+
+  useEffect(() => {
+    getNotifications();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -27,44 +43,66 @@ const BuyerNotify = () => {
         </View>
       ))}
     </View> */}
-      <View style={[styles.statBox, { width: '90%', alignSelf: 'center' }]}>
+
+      {answers &&
+        answers.map((item) => (
+          <View style={[styles.statBox, { width: "90%", alignSelf: "center" }]}>
+            <TouchableOpacity
+              style={[styles.statValue, { alignSelf: "center" }]}
+              onPress={() => navigation.navigate("answer", { item })}
+            >
+              {/* <Feather name="check-circle" size={30} color="green" /> */}
+              <View className="flex flex-row gap-1">
+                <Feather name="check-circle" size={30} color="green" />
+                <Text className="text-[16px] mt-[20px]">
+                  Your Query has been Answered by Admin
+                </Text>
+              </View>
+              <Text style={styles.statLabel} className="text-center">
+                Question : {item.subject}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        ))}
+
+      <View style={[styles.statBox, { width: "90%", alignSelf: "center" }]}>
         <TouchableOpacity
-          style={[styles.statValue, { alignSelf: 'center' }]}
-          onPress={() => navigation.navigate('query')}
+          style={[styles.statValue, { alignSelf: "center" }]}
+          onPress={() => navigation.navigate("query")}
         >
           <Text style={styles.statLabel}>Have any queries</Text>
         </TouchableOpacity>
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: "#f0f0f0",
   },
   heading: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
   statsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
   },
   statBox: {
-    width: '48%',
-    backgroundColor: '#fff',
+    width: "48%",
+    backgroundColor: "#fff",
     padding: 20,
     borderRadius: 10,
     marginBottom: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#000',
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -75,14 +113,14 @@ const styles = StyleSheet.create({
   },
   statLabel: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   statValue: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#007bff',
+    fontWeight: "bold",
+    color: "#007bff",
   },
-})
+});
 
-export default BuyerNotify
+export default BuyerNotify;
