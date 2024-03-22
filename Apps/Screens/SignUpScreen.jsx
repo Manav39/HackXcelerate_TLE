@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { FirebaseAuth } from "../firebase";
-import { db } from "../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, addDoc, collection } from "firebase/firestore";
-import { Picker } from "@react-native-picker/picker";
+import React, { useState } from 'react'
+import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { FirebaseAuth } from '../firebase'
+import { db } from '../firebase'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { doc, addDoc, collection } from 'firebase/firestore'
+import { Picker } from '@react-native-picker/picker'
 
 export default function SignUpScreen() {
   const navigation = useNavigation();

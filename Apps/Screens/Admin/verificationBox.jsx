@@ -41,6 +41,7 @@ const RequestBox = ({ businessName, seller, url, onPress }) => {
         </View>
       </View>
     </TouchableOpacity>
+
   );
 };
 

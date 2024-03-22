@@ -31,7 +31,7 @@ export default function Header() {
       <View className="pb-3 px-5 flex flex-row gap-2 border-[1px] border-blue-300  rounded-full bg-blue-50">
         <Octicons name="search" size={24} color="gray" />
         <TextInput
-          placeholder="Search"
+          placeholder="Search For Products"
           className="ml-2 text-[18px]"
           onChangeText={(value) => console.log(value)}
         />
