@@ -8,44 +8,47 @@ import { doc, addDoc, collection } from "firebase/firestore";
 import { Picker } from "@react-native-picker/picker";
 
 export default function SignUpScreen() {
-  const navigation = useNavigation()
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [role, setRole] = useState('Buyer')
+  const navigation = useNavigation();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("Buyer");
 
   const handleSignUp = async () => {
     // Implement sign up logic here
     await createUserWithEmailAndPassword(FirebaseAuth, email, password)
       .then((cred) => {
-        console.log('Success')
+        console.log("Success");
       })
-      .catch((err) => console.error(err))
+      .catch((err) => console.error(err));
 
     try {
       // Get a reference to the 'users' collection
-      await addDoc(collection(db, 'users'), {
+      await addDoc(collection(db, "users"), {
         username: username,
         email: email,
         role: role,
         isApproved: false,
-      })
+      });
 
-      console.log('User added to Firestore successfully!')
+      console.log("User added to Firestore successfully!");
     } catch (error) {
-      console.error('Error adding user to Firestore: ', error)
+      console.error("Error adding user to Firestore: ", error);
     }
-    console.log('Username:', username)
-    console.log('Email:', email)
-    console.log('Role:', role)
-    console.log('Password:', password)
-  }
+    console.log("Username:", username);
+    console.log("Email:", email);
+    console.log("Role:", role);
+    console.log("Password:", password);
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <View style={{ marginLeft: 50 }}>
-          <Image source={require("../../assets/images/signup.png")} style={styles.image} />
+          <Image
+            source={require("../../assets/images/signup.png")}
+            style={styles.image}
+          />
         </View>
         <Text style={styles.heading}>Sign Up</Text>
         <TextInput
@@ -80,28 +83,28 @@ export default function SignUpScreen() {
         </Picker>
         <Button color="#FC6736" title="Sign Up" onPress={handleSignUp} />
         <Text style={styles.footerText}>
-          Already a user?{' '}
+          Already a user?{" "}
           <Text
             style={styles.link}
-            onPress={() => navigation.navigate('Login')}
+            onPress={() => navigation.navigate("Login")}
           >
             Log in
           </Text>
         </Text>
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
   },
   content: {
-    width: '80%', // Adjust as needed
+    width: "80%", // Adjust as needed
   },
   image: {
     width: 200,
@@ -111,13 +114,13 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
   input: {
     height: 40,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10,
@@ -128,11 +131,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   footerText: {
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 20,
   },
   link: {
-    color: 'blue',
-    textDecorationLine: 'underline',
+    color: "blue",
+    textDecorationLine: "underline",
   },
-})
+});

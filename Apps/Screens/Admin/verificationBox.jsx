@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const RequestBox = ({ businessName, seller, onPress }) => {
+const RequestBox = ({ businessName, seller, url, onPress }) => {
   return (
     <TouchableOpacity
       style={styles.container}
@@ -11,8 +11,9 @@ const RequestBox = ({ businessName, seller, onPress }) => {
     >
       <View style={{ flexDirection: "row", height: 100 }}>
         <Image
-          source={require("../../../assets/images/signup.png")}
+          source={{ uri: url }}
           style={styles.image}
+          className="object-contain mr-7"
         />
         <View style={{ flexDirection: "column", marginTop: 20 }}>
           <Text style={{ fontWeight: "bold", fontSize: 20 }}>
@@ -23,14 +24,20 @@ const RequestBox = ({ businessName, seller, onPress }) => {
         <View
           style={{
             flexDirection: "column",
-            marginTop: 20,
+            marginTop: 25,
+            marginLeft: 20,
             backgroundColor: "#007bff",
             height: 25,
             width: 25,
             borderRadius: 20,
           }}
         >
-          <Ionicons name="chevron-forward" size={24} color="white" />
+          <Ionicons
+            className="ml-10"
+            name="chevron-forward"
+            size={24}
+            color="white"
+          />
         </View>
       </View>
     </TouchableOpacity>
