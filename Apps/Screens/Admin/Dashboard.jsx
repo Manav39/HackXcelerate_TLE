@@ -14,7 +14,6 @@ const Dashboard = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Admin Panel</Text>
       <View style={styles.statsContainer}>
         {statsData.map((item, index) => (
           <View style={styles.statBox} key={index}>
