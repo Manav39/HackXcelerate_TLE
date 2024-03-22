@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   subject: {
     fontSize: 30,
     fontWeight: 'bold',
-    textAlign: 'center',
+    textAlign: 'flex-start',
     marginBottom: 20,
   },
   description: {
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     minHeight: 100, // Minimum height for the input
   },
   sendButton: {
-    backgroundColor: '#FC6736',
+    backgroundColor: '#007bff',
     borderRadius: 5,
     paddingVertical: 12,
     paddingHorizontal: 20,
