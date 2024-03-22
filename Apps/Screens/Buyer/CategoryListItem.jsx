@@ -2,7 +2,6 @@ import { View, Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import { db } from "../../firebase";
-import { async } from "@firebase/util";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import DisplayItemList from "./DisplayItemList";
 

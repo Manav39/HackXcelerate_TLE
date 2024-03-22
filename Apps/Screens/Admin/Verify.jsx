@@ -1,22 +1,24 @@
-import React from 'react'
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
-import RequestBox from './verificationBox' // Import the RequestBox component
+import { useNavigation } from "@react-navigation/native";
+import React from "react";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+import RequestBox from "./verificationBox"; // Import the RequestBox component
 
 const Verify = () => {
+  const navigation = useNavigation();
   // Dummy data for requests (business names)
   const requests = [
-    { id: 1, businessName: 'Business 1' },
-    { id: 2, businessName: 'Business 2' },
-    { id: 3, businessName: 'Business 3' },
-    { id: 4, businessName: 'Business 4' },
-    { id: 5, businessName: 'Business 5' },
-    { id: 6, businessName: 'Business 6' },
-  ]
+    { id: 1, businessName: "Business 1" },
+    { id: 2, businessName: "Business 2" },
+    { id: 3, businessName: "Business 3" },
+    { id: 4, businessName: "Business 4" },
+    { id: 5, businessName: "Business 5" },
+    { id: 6, businessName: "Business 6" },
+  ];
 
   const handleRequestPress = (businessName) => {
     // Handle press for a request (e.g., navigate to details screen)
-    console.log('Pressed on request:', businessName)
-  }
+    console.log("Pressed on request:", businessName);
+  };
 
   return (
     <View style={styles.container}>
@@ -26,29 +28,29 @@ const Verify = () => {
           <RequestBox
             key={request.id}
             businessName={request.businessName}
-            onPress={() => handleRequestPress(request.businessName)}
+            onPress={() => navigation.navigate("verify-detail")}
           />
         ))}
       </ScrollView>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: "#f0f0f0",
   },
   heading: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
   scrollContainer: {
     flex: 1,
   },
-})
+});
 
-export default Verify
+export default Verify;
