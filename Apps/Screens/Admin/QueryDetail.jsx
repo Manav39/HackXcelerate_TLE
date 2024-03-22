@@ -1,21 +1,3 @@
-// import { View, Text } from "react-native";
-// import React from "react";
-// import { useRoute } from "@react-navigation/native";
-
-// export default function QueryDetail() {
-//   const { params } = useRoute();
-//   return (
-//     <View>
-//       <Text className="mt-20 text-[30px] font-bold text-center">
-//         {params.item.subject}
-//       </Text>
-//       <Text className="p-4">{params.item.description}</Text>
-//       <Text className="font-bold text-[20px] ml-2">
-//         Queried by : {params.item.useremail}
-//       </Text>
-//     </View>
-//   );
-// }
 
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
@@ -62,7 +44,7 @@ const styles = StyleSheet.create({
   subject: {
     fontSize: 30,
     fontWeight: 'bold',
-    textAlign: 'center',
+    textAlign: 'flex-start',
     marginBottom: 20,
   },
   description: {
@@ -85,7 +67,7 @@ const styles = StyleSheet.create({
     minHeight: 100, // Minimum height for the input
   },
   sendButton: {
-    backgroundColor: '#FC6736',
+    backgroundColor: '#007bff',
     borderRadius: 5,
     paddingVertical: 12,
     paddingHorizontal: 20,

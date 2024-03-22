@@ -8,8 +8,8 @@ const Dashboard = () => {
     { label: "Sellers", value: 10 },
     { label: "Products", value: 50 },
     { label: "Users", value: 100 },
-    { label: "Revenue", value: "$5000" },
-    { label: "Messages", value: 30 },
+    { label: "Orders", value: "500" },
+    { label: "Queries", value: 30 },
   ];
 
   return (
