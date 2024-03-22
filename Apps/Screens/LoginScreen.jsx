@@ -1,18 +1,8 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  Alert,
-  StyleSheet,
-  Image,
-} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { db } from "../firebase";
 import { getDocs, collection, query, where } from "firebase/firestore";
 import { useAuth } from "../context";
-import React, { useState } from 'react'
 import {
   View,
   Text,
@@ -22,10 +12,6 @@ import {
   StyleSheet,
   Image,
 } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import { db } from '../firebase'
-import { getDocs, collection, query, where } from 'firebase/firestore'
-import { useAuth } from '../context'
 
 export default function LoginScreen() {
   const { setRole, setUserName, setEmail } = useAuth()
