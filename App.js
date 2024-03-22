@@ -8,24 +8,29 @@ import AdminScreen from "./Apps/Screens/AdminScreen";
 import SellerScreen from "./Apps/Screens/SellerScreen";
 import { AuthProvider } from "./Apps/context";
 const stack = createNativeStackNavigator();
+import { StripeProvider } from '@stripe/stripe-react-native';
+
 
 export default function App() {
   return (
-    <AuthProvider>
-      <NavigationContainer>
-        <stack.Navigator
-          initialRouteName="Splash"
-          screenOptions={{ headerShown: false }}
-        >
-          <stack.Screen name="Splash" component={SplashScreen} />
-          <stack.Screen name="Login" component={LoginScreen} />
-          <stack.Screen name="SignUp" component={SignUpScreen} />
-          <stack.Screen name="Buyer" component={BuyerScreen} />
-          <stack.Screen name="Admin" component={AdminScreen} />
-          <stack.Screen name="Seller" component={SellerScreen} />
-        </stack.Navigator>
-      </NavigationContainer>
-    </AuthProvider>
+    <StripeProvider publishableKey="pk_test_51OxFoLSJ3cQkjojxkGVn6EkrQDWZjiHqUMJ27FQR6w3619Aeh6oZ2zJmx4UA8syAOjScjQtSOwjBZGsU1ZcHRkSJ00mEJjt0MK"
+    >
+      <AuthProvider>
+        <NavigationContainer>
+          <stack.Navigator
+            initialRouteName="Splash"
+            screenOptions={{ headerShown: false }}
+          >
+            <stack.Screen name="Splash" component={SplashScreen} />
+            <stack.Screen name="Login" component={LoginScreen} />
+            <stack.Screen name="SignUp" component={SignUpScreen} />
+            <stack.Screen name="Buyer" component={BuyerScreen} />
+            <stack.Screen name="Admin" component={AdminScreen} />
+            <stack.Screen name="Seller" component={SellerScreen} />
+          </stack.Navigator>
+        </NavigationContainer>
+      </AuthProvider>
+    </StripeProvider>
   );
 }
 

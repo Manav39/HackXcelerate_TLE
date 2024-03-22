@@ -7,6 +7,7 @@ import {
   Alert,
   StyleSheet,
   Image,
+  ToastAndroid,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { db } from "../firebase";
@@ -28,6 +29,7 @@ export default function LoginScreen() {
       );
       const snapshot = await getDocs(q);
       if (snapshot.empty) {
+        ToastAndroid.show('Error! Please try again later', ToastAndroid.SHORT);
         console.log("Failed to log in");
       } else {
         snapshot.forEach((doc) => {
@@ -42,6 +44,7 @@ export default function LoginScreen() {
           } else {
             navigation.navigate("Seller");
           }
+          ToastAndroid.show('Logged in successfully!', ToastAndroid.SHORT);
           setRoleUser(doc.data().role);
         });
       }
