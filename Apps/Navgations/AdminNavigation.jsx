@@ -14,6 +14,7 @@ import Report from "../Screens/Admin/Report";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import VerificationScreenNavigation from "./VerificationScreenNavigation";
+import QueryScreenNavigation from "./QueryScreenNavigation";
 const Tab = createBottomTabNavigator();
 
 export default function AdminNavigation() {
@@ -49,7 +50,7 @@ export default function AdminNavigation() {
       />
       <Tab.Screen
         name="queries"
-        component={Queries}
+        component={QueryScreenNavigation}
         options={{
           tabBarLabel: ({ color }) => (
             <Text style={{ color: color, fontSize: 12, marginBottom: 3 }}>
