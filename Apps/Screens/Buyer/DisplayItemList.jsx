@@ -3,6 +3,10 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
 export default function DisplayItemList({ itemList }) {
+  const handleProductPress = (product) => {
+    navigation.navigate("ProductDetails", { product });
+  };
+
   const navigation = useNavigation();
   return (
     <View className="mt-3">
@@ -10,7 +14,10 @@ export default function DisplayItemList({ itemList }) {
         data={itemList}
         numColumns={2}
         renderItem={({ item, index }) => (
-          <TouchableOpacity className="flex-1 m-2 p-2 rounded-lg border-[1px] border-slate-200">
+          <TouchableOpacity
+            className="flex-1 m-2 p-2 rounded-lg border-[1px] border-slate-200"
+            onPress={() => handleProductPress(item)}
+          >
             <Image
               source={{ uri: item.imageURL }}
               className="w-full h-[140px] rounded-lg object-cover"
