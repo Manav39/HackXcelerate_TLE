@@ -9,9 +9,9 @@ const RequestBox = ({ businessName, onPress }) => {
       onPress={onPress}
       className="flex flex-row"
     >
-      <View style={{ flexDirection: 'row', height:100 }}>
+      <View style={{ flexDirection: 'row', height:100, justifyContent: 'center', alignItems: 'center' }}>
         <Image source={require("../../../assets/images/signup.png")} style={styles.image} />
-        <View style={{ flexDirection: 'column', marginTop:20 }}>
+        <View style={{ flexDirection: 'column' }}>
           <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{businessName}</Text>
           <Text style={{ fontSize: 15 }}>Requested By - ....by seller </Text>
         </View>
