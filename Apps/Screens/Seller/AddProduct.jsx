@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-import { doc, addDoc, collection } from "firebase/firestore";
+import { View, Text, TextInput, Button, StyleSheet, ScrollView } from "react-native";
+import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../../context";
+
 const AddProduct = () => {
-  const { email, role, userName } = useAuth();
+  const { email, userName } = useAuth();
   const [productName, setProductName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [imageURL, setImageURL] = useState("");
+  const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleAddProduct = async () => {
     try {
@@ -23,74 +26,142 @@ const AddProduct = () => {
         price: price,
       });
 
-      console.log("User added to Firestore successfully!");
+      setSuccessMessage("Product added successfully!");
+      clearForm();
     } catch (error) {
-      console.error("Error adding user to Firestore: ", error);
+      console.error("Error adding product to Firestore: ", error);
     }
-    console.log("Product Name:", productName);
-    console.log("Quantity:", quantity);
-    console.log("Image URL:", imageURL);
-    console.log("Category:", category);
+  };
+
+  const clearForm = () => {
+    setProductName("");
+    setQuantity("");
+    setImageURL("");
+    setDescription("");
+    setCategory("");
+    setPrice("");
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Add Product</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Product Name"
-        value={productName}
-        onChangeText={setProductName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Quantity"
-        value={quantity}
-        onChangeText={setQuantity}
-        keyboardType="numeric"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Image URL"
-        value={imageURL}
-        onChangeText={setImageURL}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Category"
-        value={category}
-        onChangeText={setCategory}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Price"
-        value={price}
-        onChangeText={setPrice}
-      />
-      <Button title="Add Product" onPress={handleAddProduct} />
-    </View>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Text style={styles.heading}>Create a new Product</Text>
+
+      <View style={styles.formContainer}>
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Name of Product</Text>
+          <TextInput
+            style={styles.input}
+            value={productName}
+            onChangeText={setProductName}
+            placeholder="Enter product name"
+          />
+        </View>
+
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Image URL</Text>
+          <TextInput
+            style={styles.input}
+            value={imageURL}
+            onChangeText={setImageURL}
+            placeholder="Enter image URL"
+          />
+        </View>
+
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Description of Product</Text>
+          <TextInput
+            style={[styles.input, { height: 100 }]}
+            value={description}
+            onChangeText={setDescription}
+            placeholder="Enter product description"
+            multiline
+          />
+        </View>
+
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Price</Text>
+          <TextInput
+            style={styles.input}
+            value={price}
+            onChangeText={setPrice}
+            placeholder="Enter price"
+            keyboardType="numeric"
+          />
+        </View>
+
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Category</Text>
+          <TextInput
+            style={styles.input}
+            value={category}
+            onChangeText={setCategory}
+            placeholder="Enter category"
+          />
+        </View>
+
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Quantity</Text>
+          <TextInput
+            style={styles.input}
+            value={quantity}
+            onChangeText={setQuantity}
+            placeholder="Enter quantity"
+            keyboardType="numeric"
+          />
+        </View>
+
+        <Button title="Add Product" onPress={handleAddProduct} />
+
+        {successMessage ? <Text style={styles.successMessage}>{successMessage}</Text> : null}
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    flexGrow: 1,
     padding: 20,
+    justifyContent: 'center',
   },
   heading: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 20,
+    textAlign: 'center',
+  },
+  formContainer: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  inputGroup: {
+    marginBottom: 15,
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 5,
   },
   input: {
-    width: "100%",
-    height: 40,
-    borderColor: "gray",
     borderWidth: 1,
-    marginBottom: 20,
-    paddingHorizontal: 10,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    fontSize: 16,
+  },
+  successMessage: {
+    color: 'green',
+    fontSize: 18,
+    marginTop: 10,
+    textAlign: 'center',
   },
 });
 
