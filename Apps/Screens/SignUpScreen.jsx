@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { FirebaseAuth } from "../firebase";
-import { db } from "../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, addDoc, collection } from "firebase/firestore";
-import { Picker } from "@react-native-picker/picker";
+import React, { useState } from 'react'
+import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { FirebaseAuth } from '../firebase'
+import { db } from '../firebase'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { doc, addDoc, collection } from 'firebase/firestore'
+import { Picker } from '@react-native-picker/picker'
 
 export default function SignUpScreen() {
   const navigation = useNavigation()
@@ -45,7 +45,10 @@ export default function SignUpScreen() {
     <View style={styles.container}>
       <View style={styles.content}>
         <View style={{ marginLeft: 50 }}>
-          <Image source={require("../../assets/images/signup.png")} style={styles.image} />
+          <Image
+            source={require('../../assets/images/signup.png')}
+            style={styles.image}
+          />
         </View>
         <Text style={styles.heading}>Sign Up</Text>
         <TextInput
