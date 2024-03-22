@@ -1,10 +1,11 @@
 import { View, Text } from "react-native";
 import React from "react";
+import AdminNavigation from "../Navgations/AdminNavigation";
 
 export default function AdminScreen() {
   return (
-    <View>
-      <Text>AdminScreen</Text>
+    <View className="flex-1">
+      <AdminNavigation />
     </View>
   );
 }
