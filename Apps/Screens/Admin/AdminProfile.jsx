@@ -7,7 +7,7 @@ export default function AdminProfile() {
   const { email, role, userName } = useAuth();
   return (
     <View>
-      <View style={{padding:10}} className="py-8 flex flex-row items-center gap-4">
+      <View style={{padding:10, marginTop: 20}} className="py-8 flex flex-row items-center gap-4">
         <Image
           source={require("../../../assets/images/pic.png")}
           className="rounded-full w-12 h-12 mt-5"

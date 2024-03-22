@@ -1,6 +1,6 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { Ionicons } from '@expo/vector-icons' // Make sure to install @expo/vector-icons
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
 
 const RequestBox = ({ businessName, onPress }) => {
   return (
@@ -9,9 +9,16 @@ const RequestBox = ({ businessName, onPress }) => {
       onPress={onPress}
       className="flex flex-row"
     >
-      <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{businessName}</Text>
-      <Text style={{ fontSize: 15 }}>Requested By - ....by seller </Text>
-      {/* <Ionicons name="chevron-forward" size={24} color="black" /> */}
+      <View style={{ flexDirection: 'row', height:100 }}>
+        <Image source={require("../../../assets/images/signup.png")} style={styles.image} />
+        <View style={{ flexDirection: 'column', marginTop:20 }}>
+          <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{businessName}</Text>
+          <Text style={{ fontSize: 15 }}>Requested By - ....by seller </Text>
+        </View>
+        <View style={{ flexDirection: 'column', marginTop:20, backgroundColor: '#007bff', height: 25, width: 25, borderRadius:20 }}>
+          <Ionicons name="chevron-forward" size={24} color="white" />
+        </View>
+      </View>
     </TouchableOpacity>
   )
 }
@@ -26,7 +33,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 10,
     marginBottom: 15,
-    shadowColor: '#000',
+    shadowColor: '#007bff',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -34,6 +41,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    borderWidth: 2,
+    borderColor: "#007bff", 
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 8,
+    marginBottom: 20,
   },
 })
 
