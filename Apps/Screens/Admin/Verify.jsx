@@ -1,11 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import RequestBox from "./verificationBox"; // Import the RequestBox component
+import { db } from "../../firebase";
+import { getDocs, collection, query, where } from "firebase/firestore";
 
 const Verify = () => {
   const navigation = useNavigation();
   // Dummy data for requests (business names)
+  const [details, setDetails] = useState([]);
   const requests = [
     { id: 1, businessName: "Business 1" },
     { id: 2, businessName: "Business 2" },
@@ -15,22 +18,32 @@ const Verify = () => {
     { id: 6, businessName: "Business 6" },
   ];
 
-  const handleRequestPress = (businessName) => {
-    // Handle press for a request (e.g., navigate to details screen)
-    console.log("Pressed on request:", businessName);
+  const getVerifyDetails = async () => {
+    setDetails("");
+    const q = query(collection(db, "verify"));
+    const snapshot = await getDocs(q);
+    snapshot.forEach((doc) => {
+      setDetails((details) => [...details, doc.data()]);
+      console.log(doc.data());
+    });
   };
+
+  useEffect(() => {
+    getVerifyDetails();
+  }, []);
 
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Requests</Text>
       <ScrollView style={styles.scrollContainer}>
-        {requests.map((request) => (
-          <RequestBox
-            key={request.id}
-            businessName={request.businessName}
-            onPress={() => navigation.navigate("verify-detail")}
-          />
-        ))}
+        {details &&
+          details?.map((item) => (
+            <RequestBox
+              businessName={item.businessName}
+              seller={item.userName}
+              onPress={() => navigation.navigate("verify-detail", { item })}
+            />
+          ))}
       </ScrollView>
     </View>
   );
