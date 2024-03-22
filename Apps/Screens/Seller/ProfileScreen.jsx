@@ -24,6 +24,21 @@ export default function ProfileScreen() {
         value={username}
         onChangeText={(text) => setUsername(text)}
       />
+
+      <Text style={{ fontSize: 20, marginBottom: 10 }}>Business Name</Text>
+      <TextInput
+        style={{
+          height: 40,
+          borderColor: "gray",
+          borderWidth: 1,
+          marginBottom: 10,
+          paddingHorizontal: 10,
+          borderRadius: 10,
+        }}
+        placeholder="Business Name"
+        value={username}
+        onChangeText={(text) => setUsername(text)}
+      />
     </View>
   );
 }
