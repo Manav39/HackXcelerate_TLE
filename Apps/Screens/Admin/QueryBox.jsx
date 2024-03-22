@@ -18,6 +18,8 @@ const QueryBox = ({ subject, useremail, onPress }) => {
 
 const styles = StyleSheet.create({
   container: {
+    borderWidth: 2,
+    borderColor: "#007bff",
     flexDirection: "col",
     alignItems: "flex-start",
     justifyContent: "space-between",
@@ -26,10 +28,11 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 10,
     marginBottom: 15,
+    height: 100,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 1,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,

@@ -9,6 +9,7 @@ const RequestBox = ({ businessName, seller, onPress }) => {
       onPress={onPress}
       className="flex flex-row"
     >
+<<<<<<< HEAD
       <View style={{ flexDirection: "row", height: 100 }}>
         <Image
           source={require("../../../assets/images/signup.png")}
@@ -19,6 +20,13 @@ const RequestBox = ({ businessName, seller, onPress }) => {
             {businessName}
           </Text>
           <Text style={{ fontSize: 15 }}>Requested By : {seller} </Text>
+=======
+      <View style={{ flexDirection: 'row', height:100, justifyContent: 'center', alignItems: 'center' }}>
+        <Image source={require("../../../assets/images/signup.png")} style={styles.image} />
+        <View style={{ flexDirection: 'column' }}>
+          <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{businessName}</Text>
+          <Text style={{ fontSize: 15 }}>Requested By - ....by seller </Text>
+>>>>>>> 4e5943dc96a49cba15c6c4d725d632dcf81baf5a
         </View>
         <View
           style={{
