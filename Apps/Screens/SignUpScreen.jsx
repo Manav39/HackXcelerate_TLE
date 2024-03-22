@@ -28,6 +28,7 @@ export default function SignUpScreen() {
         username: username,
         email: email,
         role: role,
+        isApproved: false
       });
 
       console.log("User added to Firestore successfully!");
@@ -50,6 +51,7 @@ export default function SignUpScreen() {
           borderWidth: 1,
           marginBottom: 10,
           paddingHorizontal: 10,
+          borderRadius: 10,
         }}
         placeholder="Username"
         value={username}
@@ -62,6 +64,7 @@ export default function SignUpScreen() {
           borderWidth: 1,
           marginBottom: 10,
           paddingHorizontal: 10,
+          borderRadius: 10,
         }}
         placeholder="Email"
         value={email}
@@ -74,6 +77,7 @@ export default function SignUpScreen() {
           borderWidth: 1,
           marginBottom: 10,
           paddingHorizontal: 10,
+          borderRadius: 10,
         }}
         placeholder="Password"
         secureTextEntry={true}
@@ -99,11 +103,12 @@ export default function SignUpScreen() {
       >
         <Picker.Item label="Buyer" value="Buyer" />
         <Picker.Item label="Seller" value="Seller" />
-        <Picker.Item label="Admin" value="Admin" />
+        {/* <Picker.Item label="Admin" value="Admin" /> */}
       </Picker>
-      <Button title="Sign Up" onPress={handleSignUp} />
-      <Text>Already a User then</Text>
+      <Button style={{ borderRadius: 10 }} title="Sign Up" onPress={handleSignUp} />
+      <Text style={{ textAlign: "center", marginVertical: 10 }}>Already a User then</Text>
       <Button
+        style={{ borderRadius: 10 }}
         title="Go to Login"
         onPress={() => navigation.navigate("Login")}
       />
@@ -120,5 +125,6 @@ const styles = StyleSheet.create({
   picker: {
     width: 200,
     height: 50,
+    alignSelf: "center"
   },
 });

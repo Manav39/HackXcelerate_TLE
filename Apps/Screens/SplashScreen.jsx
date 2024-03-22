@@ -16,7 +16,7 @@ export default function SplashScreen() {
           Apna Kitchen
         </Text>
         <Text className="text-[18px] text-slate-500 mt-6">
-          Ghar jaisa nhi, Ghar ka hi
+          Ghar jaisa nahi, Ghar ka hi
         </Text>
         <TouchableOpacity
           onPress={() => navigation.navigate("SignUp")}

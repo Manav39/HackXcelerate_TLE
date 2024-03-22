@@ -11,10 +11,11 @@ export const AuthProvider = ({ children }) => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
+  const [isApproved, setIsApproved] = useState(false);
 
   return (
     <AuthContext.Provider
-      value={{ userName, setUserName, email, setEmail, role, setRole }}
+      value={{ userName, setUserName, email, setEmail, role, setRole, isApproved, setIsApproved }}
     >
       {children}
     </AuthContext.Provider>
