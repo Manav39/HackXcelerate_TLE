@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, Alert, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  Alert,
+  StyleSheet,
+  Image,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { db } from "../firebase";
 import { getDocs, collection, query, where } from "firebase/firestore";
@@ -14,7 +22,10 @@ export default function LoginScreen() {
 
   const handleLogin = async () => {
     try {
-      const q = query(collection(db, "users"), where("email", "==", email));
+      const q = await query(
+        collection(db, "users"),
+        where("email", "==", email)
+      );
       const snapshot = await getDocs(q);
       if (snapshot.empty) {
         console.log("Failed to log in");
@@ -41,30 +52,32 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-    <View style={styles.content}>
-      <View style={{ marginLeft: 50 }}>
-        <Image source={require("../../assets/images/login.png")} style={styles.image} />
-      </View>
-      <Text style={styles.heading}>Login</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        value={email}
-        onChangeText={(text) => setEmailUser(text)}
+      <View style={styles.content}>
+        <View style={{ marginLeft: 50 }}>
+          <Image
+            source={require("../../assets/images/login.png")}
+            style={styles.image}
+          />
+        </View>
+        <Text style={styles.heading}>Login</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          value={email}
+          onChangeText={(text) => setEmailUser(text)}
         />
-      <TextInput
-        style={styles.input}
-        secureTextEntry
-        placeholder="Password"
-        value={password}
-        onChangeText={(text) => setPassword(text)}
+        <TextInput
+          style={styles.input}
+          secureTextEntry
+          placeholder="Password"
+          value={password}
+          onChangeText={(text) => setPassword(text)}
         />
 
-      <Button color="#FC6736" title="Login" onPress={handleLogin} />
-      
-    </View>
+        <Button color="#FC6736" title="Login" onPress={handleLogin} />
+      </View>
     </View>
   );
 }
@@ -72,12 +85,12 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
   },
   content: {
-    width: '80%', // Adjust as needed
+    width: "80%", // Adjust as needed
   },
   image: {
     width: 200,
@@ -87,13 +100,13 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
   input: {
     height: 40,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderWidth: 1,
     marginBottom: 10,
     paddingHorizontal: 10,
@@ -104,11 +117,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   footerText: {
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 20,
   },
   link: {
-    color: 'blue',
-    textDecorationLine: 'underline',
+    color: "blue",
+    textDecorationLine: "underline",
   },
-})
+});
