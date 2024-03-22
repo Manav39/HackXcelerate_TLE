@@ -30,7 +30,9 @@ export default function HomeScreen() {
 
   return (
     <View className=" px-6 bg-white flex-1">
-      <Header />
+      <View style={{ marginTop: 15 }}>
+        <Header />
+      </View>
       <Slider sliderList={sliderList} />
       <Category categoryList={categoryList} />
     </View>

@@ -39,7 +39,9 @@ export default function ExploreScreen({ navigation }) {
     //       </TouchableOpacity>
     //     ))}
     // </View>
-    <DisplayItemList itemList={products} />
+    <View style={{ marginTop: 20 }}>
+      <DisplayItemList itemList={products} />
+    </View>
   );
 }
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { FirebaseAuth } from "../firebase";
 import { db } from "../firebase";
@@ -44,6 +44,9 @@ export default function SignUpScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
+        <View style={{ marginLeft: 50 }}>
+          <Image source={require("../../assets/images/signup.png")} style={styles.image} />
+        </View>
         <Text style={styles.heading}>Sign Up</Text>
         <TextInput
           style={styles.input}
@@ -75,7 +78,7 @@ export default function SignUpScreen() {
           <Picker.Item label="Seller" value="Seller" />
           {/* <Picker.Item label="Admin" value="Admin" /> */}
         </Picker>
-        <Button title="Sign Up" onPress={handleSignUp} />
+        <Button color="#FC6736" title="Sign Up" onPress={handleSignUp} />
         <Text style={styles.footerText}>
           Already a user?{' '}
           <Text
@@ -99,6 +102,12 @@ const styles = StyleSheet.create({
   },
   content: {
     width: '80%', // Adjust as needed
+  },
+  image: {
+    width: 200,
+    height: 200,
+    borderRadius: 8,
+    marginBottom: 20,
   },
   heading: {
     fontSize: 24,

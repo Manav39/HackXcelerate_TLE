@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, Alert } from "react-native";
+import { View, Text, TextInput, Button, Alert, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { db } from "../firebase";
 import { getDocs, collection, query, where } from "firebase/firestore";
@@ -40,34 +40,75 @@ export default function LoginScreen() {
   };
 
   return (
-    <View style={{ padding: 20 }} className="flex mt-[240px]">
-      <Text style={{ fontSize: 20, marginBottom: 10 }}>Login</Text>
+    <View style={styles.container}>
+    <View style={styles.content}>
+      <View style={{ marginLeft: 50 }}>
+        <Image source={require("../../assets/images/login.png")} style={styles.image} />
+      </View>
+      <Text style={styles.heading}>Email</Text>
       <TextInput
-        style={{
-          height: 40,
-          borderColor: "gray",
-          borderWidth: 1,
-          marginBottom: 10,
-          paddingHorizontal: 10,
-        }}
+        style={styles.input}
         placeholder="Email"
+        keyboardType="email-address"
+        autoCapitalize="none"
         value={email}
         onChangeText={(text) => setEmailUser(text)}
-      />
+        />
       <TextInput
-        style={{
-          height: 40,
-          borderColor: "gray",
-          borderWidth: 1,
-          marginBottom: 10,
-          paddingHorizontal: 10,
-        }}
+        style={styles.input}
+        secureTextEntry
         placeholder="Password"
         value={password}
         onChangeText={(text) => setPassword(text)}
-      />
+        />
 
-      <Button title="Login" onPress={handleLogin} />
+      <Button color="#FC6736" title="Login" onPress={handleLogin} />
+      
+    </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  content: {
+    width: '80%', // Adjust as needed
+  },
+  image: {
+    width: 200,
+    height: 200,
+    borderRadius: 8,
+    marginBottom: 20,
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  input: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+  },
+  picker: {
+    height: 50,
+    marginBottom: 10,
+  },
+  footerText: {
+    textAlign: 'center',
+    marginTop: 20,
+  },
+  link: {
+    color: 'blue',
+    textDecorationLine: 'underline',
+  },
+})
