@@ -20,7 +20,8 @@ export default function SplashScreen() {
         </Text>
         <TouchableOpacity
           onPress={() => navigation.navigate("SignUp")}
-          className="w-[200px] p-4 bg-blue-500 rounded-full mt-8"
+          className="w-[200px] p-4 bg-blue-500 mt-8"
+          style={{ backgroundColor: "#FC6736", borderRadius: 20 }}
         >
           <Text className="text-white text-center text-[18px]">
             Get Started
