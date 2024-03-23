@@ -12,6 +12,9 @@ const Tab = createBottomTabNavigator();
 import { useAuth } from "../context";
 // import SellerDashboard  from "../Screens/Seller/SellerDashboard";
 import SellerProfileAfterAuth from "../Screens/Seller/SellerProfileAfterAuth";
+import SellerProfile from "../Screens/Seller/SellerProfile";
+import SellerHome from "../Screens/Seller/SellerHome";
+import SellerHomeStackNavigation from "./SellerHomeStackNavigation";
 
 export default function SellerNavigation() {
   const [approved, setApproved] = useState(false);
@@ -24,12 +27,12 @@ export default function SellerNavigation() {
 
   return (
     <Tab.Navigator 
-    initialRouteName = {isApproved ? "home" : "profile"}
+    initialRouteName = {isApproved ? "homes" : "profile"}
     screenOptions={{ headerShown: false }}
     >
       <Tab.Screen
-        name="home"
-        component={isApproved ? HomeScreen : ProfileScreen}
+        name="homes"
+        component={isApproved ? SellerHomeStackNavigation : SellerProfile}
         options={{
           tabBarLabel: ({ color }) => (
             <Text style={{ color: isApproved ? color : "grey", fontSize: 12, marginBottom: 3 }}>
