@@ -107,21 +107,23 @@ const ProductDetails = ({ route }) => {
               onPress={decreaseQuantity}
               style={styles.quantityButton}
             >
-              <Text>-</Text>
+              <Text style={{color:'#ffffff'}}>-</Text>
             </TouchableOpacity>
             <Text style={styles.quantity}>{quantity}</Text>
             <TouchableOpacity
               onPress={increaseQuantity}
               style={styles.quantityButton}
             >
-              <Text>+</Text>
+              <Text style={{color:'#ffffff'}}>+</Text>
             </TouchableOpacity>
           </View>
-          <Button
-            title="Add to Cart"
-            onPress={addToCart}
-            buttonStyle={styles.addButton}
-          />
+          <TouchableOpacity
+  onPress={addToCart}
+  style={[styles.addButton, { backgroundColor: "#FC6736" }]}
+>
+  <Text style={styles.addButtonText}>Add to Cart</Text>
+</TouchableOpacity>
+
         </View>
       </View>
 
@@ -169,6 +171,7 @@ const ProductDetails = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: "15%",
+    padding: 10,
     marginHorizontal: 20,
     justifyContent: "center",
     backgroundColor: "white",
@@ -186,6 +189,7 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: 200,
+    borderRadius: 10,
   },
   details: {
     padding: 10,
@@ -216,8 +220,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   addButton: {
-    backgroundColor: "#FC6736",
+    backgroundColor: "transparent",
     borderRadius: 5,
+    borderWidth: 1,
+    borderColor: "#FC6736",
+    paddingVertical: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  addButtonText: {
+    color: "#ffffff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
   modalView: {
     flex: 1,
@@ -253,5 +267,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
+
 
 export default ProductDetails;

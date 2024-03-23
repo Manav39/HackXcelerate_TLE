@@ -26,11 +26,13 @@ export default function CategoryListItem() {
     });
   };
   return (
-    <View className="mt-20">
+    <View  className="mt-20">
       {itemList ? (
-        <DisplayItemList itemList={itemList} />
+        <DisplayItemList  itemList={itemList} />
       ) : (
-        <Text>No {params.category} Found</Text>
+        // <View style={{flex:1}}>
+        <Text style={{fontSize:25, fontWeight:'bold', marginTop:300, marginLeft:140}}>Loading...</Text>
+        // </View>
       )}
     </View>
   );

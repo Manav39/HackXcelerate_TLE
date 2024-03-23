@@ -17,8 +17,8 @@ export default function SellerProfileAfterAuth() {
 
   return (
     <View style={{ padding: 20 }} className="mt-[100px]" >
-      <Text style={{ fontWeight: 'bold', fontSize: 26, marginLeft: '30%' }}>
-        Your Profile
+      <Text style={{ fontWeight: 'bold', fontSize: 26, alignItems:'center', marginLeft:'17%' }}>
+        Welcome, Mohammed
       </Text>
       <TouchableOpacity
         style={{

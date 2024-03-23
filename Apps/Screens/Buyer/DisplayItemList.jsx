@@ -10,7 +10,7 @@ export default function DisplayItemList({ itemList }) {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <View>
+      <Text></Text>
       <FlatList
         data={itemList}
         numColumns={2}
@@ -37,11 +37,6 @@ export default function DisplayItemList({ itemList }) {
           </TouchableOpacity>
         )}
       />
-      </View>
-      
-      <View style={ styles.container }>
-        <Text>Recommended Products</Text>
-      </View>
     </View>
   );
 }
@@ -52,17 +47,17 @@ const styles = StyleSheet.create({
   },
   itemContainer: {
     flex: 1,
-    margin: 2,
+    margin: 5, // Add margin for spacing between items
     padding: 10,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#FC6736',
+    backgroundColor: '#fff', // White background for each item container
   },
   image: {
     width: '100%',
     height: 140,
     borderRadius: 8,
-    objectFit: 'cover',
   },
   infoContainer: {
     padding: 10,
@@ -81,11 +76,12 @@ const styles = StyleSheet.create({
   category: {
     color: '#FC6736', // Orange color for category
     backgroundColor: '#FFECB3', // Light orange background for category
-    marginTop: 1,
-    padding: 2,
+    marginTop: 5, // Adjust spacing between price and category
+    paddingVertical: 3,
+    paddingHorizontal: 8,
     textAlign: 'center',
     borderRadius: 10,
-    fontSize: 10,
-    width: 70,
+    fontSize: 12,
+    width: 90,
   },
 });
