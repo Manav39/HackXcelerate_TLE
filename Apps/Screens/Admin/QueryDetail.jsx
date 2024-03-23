@@ -5,6 +5,8 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  Linking,
+  ToastAndroid,
 } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import { db } from "../../firebase";
@@ -13,6 +15,13 @@ import { addDoc, collection } from "firebase/firestore";
 export default function QueryDetail() {
   const { params } = useRoute();
   const [response, setResponse] = useState("");
+  const email = params.item.useremail;
+  const subject = params.item.subject;
+  const text = params.item.description;
+
+  const sendEmail = () => {
+    
+  }
 
   const handleSend = async () => {
     try {
@@ -22,7 +31,8 @@ export default function QueryDetail() {
         useremail: params.item.useremail,
         adminreply: response,
       });
-
+      Linking.openURL(`mailto: ${email}?subject=${subject.replace(' ', '+')}&body=${text.replace(' ', '+')}`)
+      ToastAndroid.show('Message sent successfully', ToastAndroid.SHORT);
       console.log("Query answered successfully");
     } catch (error) {
       console.error("Error while answering query: ", error);

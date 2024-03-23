@@ -70,7 +70,6 @@ const ProductDetails = ({ route }) => {
   };
 
   const handleEdit = (product) => {
-    setEditedProduct(product);
     setEditModalVisible(true);
   };
 
@@ -116,6 +115,12 @@ const ProductDetails = ({ route }) => {
             >
               <Text style={{color:'#ffffff'}}>+</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              className="ml-40"
+              onPress={() => setEditModalVisible(true)}
+            >
+              <MaterialIcons name="report" size={30} color="red" />
+            </TouchableOpacity>
           </View>
           <TouchableOpacity
   onPress={addToCart}
@@ -126,43 +131,42 @@ const ProductDetails = ({ route }) => {
 
         </View>
       </View>
-
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={editModalVisible}
+        onRequestClose={() => setEditModalVisible(false)}
+      >
+        <View style={styles.modalView}>
+          <ScrollView contentContainerStyle={styles.modalContent}>
+            <Text style={styles.modalHeaderText}>Report Title</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Title"
+              onChangeText={(text) => setTitle(text)}
+              value={title}
+            />
+            <Text style={styles.modalHeaderText}>Report Description</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Description"
+              onChangeText={(text) => setDesc(text)}
+              value={desc}
+            />
+            <View style={styles.buttonContainer}>
+              <Button title="Submit" onPress={handleSaveEdit} />
+              <Button
+                title="Cancel"
+                onPress={() => setEditModalVisible(false)}
+              />
+            </View>
+          </ScrollView>
+        </View>
+      </Modal>
       <View style={{ alignSelf: "center" }}>
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>
           Recommended Products
         </Text>
-
-        {/* <ScrollView className="mt-20">
-          <View style={{ flexDirection: "row", alignSelf: "center" }}>
-            <Text style={{ fontSize:35, alignSelf: "center", marginBottom: 30 }}>Cart </Text>
-            <Feather style={{ marginTop:15 }} name="shopping-cart" size={24} color="black" />
-          </View>
-          {items &&
-            items.map((item, index) => (
-              <TouchableOpacity
-                key={index}
-                style={ styles.container }
-                // onPress={() => handleProductPress(product)}
-              >
-                <View style={ styles.cart }>
-                  <View>
-                    <Image
-                      source={{
-                        uri: item.productName.imageURL,
-                      }}
-                      style={styles.image}
-                      className="w-10 h-2"
-                    />
-                  </View>
-                  <View style={{ marginLeft: 40 }}>
-                    <Text style={{ fontSize: 24 }}>Name: {item.productName.productName}</Text>
-                    <Text style={{ fontSize: 18 }}>Qty: {item.quantity}</Text>
-                    <Text style={{ fontSize: 18 }}>Total Price:  ₹{item.productName.price * item.quantity}</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            ))}
-        </ScrollView> */}
       </View>
     </View>
   );

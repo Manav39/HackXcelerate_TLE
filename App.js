@@ -9,9 +9,17 @@ import SellerScreen from "./Apps/Screens/SellerScreen";
 import { AuthProvider } from "./Apps/context";
 import SellerDashboard from "./Apps/Screens/Seller/SellerDashboard";
 import SellerAllProducts from "./Apps/Screens/Seller/SellerAllProducts";
+import { useEffect } from "react";
 const stack = createNativeStackNavigator();
+import { LogBox } from 'react-native';
 
 export default function App() {
+
+  useEffect(() => {
+    LogBox.ignoreLogs(['Warning: ...']);
+    LogBox.ignoreAllLogs();
+  }, [])
+
   return (
     <AuthProvider>
       <NavigationContainer>
