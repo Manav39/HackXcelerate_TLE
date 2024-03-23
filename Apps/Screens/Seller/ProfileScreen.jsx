@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, StyleSheet, Image, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet, Image, ScrollView } from "react-native";
 import { useAuth } from "../../context";
 import * as Location from 'expo-location';
 import { FirebaseAuth } from "../../firebase";
+import { signInWithPhoneNumber } from "firebase/auth";
+import { Entypo, Ionicons } from "@expo/vector-icons";
 import { addDoc, collection } from "firebase/firestore";
 import { db, storage } from "../../firebase";
 import * as ImagePicker from 'expo-image-picker';
 
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getStorage, getDownloadURL } from "firebase/storage";
 
 export default function ProfileScreen() {
-  const { userName, email } = useAuth();
+  const { userName } = useAuth();
   const [businessName, setBusinessName] = useState("");
   const [address, setAddress] = useState("");
+  const { email } = useAuth();
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState("");
 
@@ -22,6 +25,9 @@ export default function ProfileScreen() {
   const [errorMsg, setErrorMsg] = useState(null);
 
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [confirmation, setConfirmation] = useState(null);
+  const [verificationId, setVerificationId] = useState(null);
+
   const { waitingForConfirmation, setWaitingForConfirmation } = useAuth();
 
   useEffect(() => {
@@ -58,11 +64,11 @@ export default function ProfileScreen() {
     }
   };
 
-  const waitForConfirmation = async () => {
+  const waitForConfirmation = async() => {
     try {
       const resp = await fetch(image);
       const blob = await resp.blob();
-      const storageRef = ref(storage, "SellerImages/" + ".jpg")
+      const storageRef = await ref(storage, "SellerImages/" + ".jpg")
       const bytes = await uploadBytes(storageRef, blob);
       const downloadUrl = await getDownloadURL(storageRef);
       const u = downloadUrl;
@@ -82,21 +88,68 @@ export default function ProfileScreen() {
     } catch (error) {
       console.error("Error adding seller application to Firestore: ", error);
     }
-  };
+    
+  }
 
   return (
-    <ScrollView style={{ padding: 20, backgroundColor: '#ffffff' }} className="mt-[100px]">
-      {waitingForConfirmation && (
-        <View style={styles.card}>
-          <Text style={styles.text}>Waiting for confirmation by Admin</Text>
-          <Entypo name="hour-glass" size={35} style={{ alignSelf: "center", marginVertical: 20 }} />
-        </View>
-      )}
+    <ScrollView style={{ padding: 20, backgroundColor:'#ffffff' }} className="mt-[100px]">
+      {
+        waitingForConfirmation && (
+          <>
+            <View style={styles.card}>
+              <Text style={styles.text}>Waiting for confirmation by Admin</Text>
+              <Entypo name="hour-glass" size={35} style={{ alignSelf:"center", marginVertical:20 }}/>
+            </View>
+          </>
+        )
+      }
+      
+      {
+        !waitingForConfirmation && (
+          <>
+            <Text style={{ fontSize: 20, marginBottom: 1 }}>User Name</Text>
+            {
+              userName && (
+                <TextInput
+                  style={{
+                    height: 40,
+                    borderColor: "#FC6736",
+                    borderWidth: 1,
+                    marginBottom: 10,
+                    paddingHorizontal: 10,
+                    borderRadius: 10,
+                    fontWeight: "bold",
+                  }}
+                  placeholder="Username"
+                  value={`${userName}`}
+                  editable={false}
+                />
+              )
+            }
 
-      {!waitingForConfirmation && (
-        <>
-          <Text style={{ fontSize: 20, marginBottom: 1 }}>User Name</Text>
-          {userName && (
+            <Text style={{ fontSize: 20, marginBottom: 10 }}>Profile Image</Text>
+            <Button style={{borderRadius:10}} color="#FC6736"  title="Pick an image from camera roll" onPress={pickImage} />
+            {image && 
+            <Image source={{ uri: image }} style={{ width: 200, height: 200, borderRadius: 10, marginVertical: 5}} />  
+            }
+
+            <Text style={{ fontSize: 20, marginBottom: 10, marginTop:7 }}>Email</Text>
+                  <TextInput
+                    style={{
+                      height: 40,
+                      borderColor: "#FC6736",
+                      borderWidth: 1,
+                      marginBottom: 10,
+                      paddingHorizontal: 10,
+                      borderRadius: 10,
+                      fontWeight: "bold",
+                    }}
+                    placeholder="Email"
+                    value={`${email}`}
+                    editable={false}
+                  />
+
+            <Text style={{ fontSize: 20, marginBottom: 10 }}>Business Name</Text>
             <TextInput
               style={{
                 height: 40,
@@ -105,58 +158,15 @@ export default function ProfileScreen() {
                 marginBottom: 10,
                 paddingHorizontal: 10,
                 borderRadius: 10,
-                fontWeight: "bold",
               }}
-              placeholder="Username"
-              value={`${userName}`}
-              editable={false}
+              placeholder="Business Name"
+              value={businessName}
+              onChangeText={(text) => setBusinessName(text)}
             />
-          )}
 
-          <Text style={{ fontSize: 20, marginBottom: 10 }}>Profile Image</Text>
-          <TouchableOpacity
-            style={[styles.button, { backgroundColor: "#FC6736", borderRadius: 8 }]}
-            onPress={pickImage}
-          >
-            <Text style={{ color: "#ffffff", textAlign: "center" }}>Pick an image from camera roll</Text>
-          </TouchableOpacity>
-          {image && (
-            <Image source={{ uri: image }} style={{ width: 200, height: 200, borderRadius: 10, marginVertical: 5 }} />
-          )}
-
-          <Text style={{ fontSize: 20, marginBottom: 10, marginTop: 7 }}>Email</Text>
-          <TextInput
-            style={{
-              height: 40,
-              borderColor: "#FC6736",
-              borderWidth: 1,
-              marginBottom: 10,
-              paddingHorizontal: 10,
-              borderRadius: 10,
-              fontWeight: "bold",
-            }}
-            placeholder="Email"
-            value={`${email}`}
-            editable={false}
-          />
-
-          <Text style={{ fontSize: 20, marginBottom: 10 }}>Business Name</Text>
-          <TextInput
-            style={{
-              height: 40,
-              borderColor: "#FC6736",
-              borderWidth: 1,
-              marginBottom: 10,
-              paddingHorizontal: 10,
-              borderRadius: 10,
-            }}
-            placeholder="Business Name"
-            value={businessName}
-            onChangeText={(text) => setBusinessName(text)}
-          />
-
+          {/* phone number */}
           <Text style={{ fontSize: 20, marginBottom: 10 }}>Phone Number</Text>
-          <TextInput
+            <TextInput 
             style={{
               height: 40,
               borderColor: "#FC6736",
@@ -165,14 +175,14 @@ export default function ProfileScreen() {
               paddingHorizontal: 10,
               borderRadius: 10,
             }}
-            value={phoneNumber}
-            onChangeText={setPhoneNumber}
-            placeholder="Phone Number"
-            keyboardType="phone-pad"
-          />
+              value={phoneNumber}
+              onChangeText={setPhoneNumber}
+              placeholder="Phone Number"
+              keyboardType="phone-pad"
+            />
 
           <Text style={{ fontSize: 20, marginBottom: 10 }}>Address</Text>
-          <TextInput
+            <TextInput 
             style={{
               height: 40,
               borderColor: "#FC6736",
@@ -181,31 +191,33 @@ export default function ProfileScreen() {
               paddingHorizontal: 10,
               borderRadius: 10,
             }}
-            value={address}
-            onChangeText={setAddress}
-            placeholder="Business Address"
-          />
+              value={address}
+              onChangeText={setAddress}
+              placeholder="Business Address"
+            />
 
-          <View style={{ marginVertical: 20 }}>
-            <TouchableOpacity
-              onPress={waitForConfirmation}
-              style={[styles.button, { backgroundColor: "#FC6736", borderRadius: 8 }]}
-            >
-              <Text style={{ color: "#ffffff", textAlign: "center" }}>Confirm</Text>
-            </TouchableOpacity>
-          </View>
-        </>
-      )}
+            <View style={{ marginVertical: 20 }}>
+              <Button
+                  title="Confirm"
+                  onPress={waitForConfirmation}
+                  color="#FC6736" 
+                  style={styles.button}
+              />
+            </View>
+          </>
+        )
+      }
     </ScrollView>
   );
 }
 
+
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#ffffff",
+    backgroundColor: '#ffffff',
     padding: 15,
     borderRadius: 10,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -213,15 +225,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    color: "#333",
-    textAlign: "center",
+    color: '#333',
+    textAlign: 'center',
   },
-  button: {
-    backgroundColor: "#FC6736",
-    paddingVertical: 15,
-    paddingHorizontal: 35,
-    borderRadius: 10,
-    marginBottom: 10,
-  },
+  button:{
+    borderRadius:50,
+    padding:50
+  }
 });
-

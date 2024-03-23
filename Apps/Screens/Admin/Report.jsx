@@ -1,34 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import ReportBox from "./ReportBox"; // Import the RequestBox component
+import ReportBox from "./ReportBox";
+import { db } from "../../firebase";
+import { getDocs, collection, query, where } from "firebase/firestore";
+import { useNavigation } from "@react-navigation/native";
 
-const Reports = () => {
+const Report = () => {
+  const [reportDetails, setReportDetails] = useState([]);
   // Dummy data for requests (business names)
-  const reports = [
-    { id: 1, businessName: "Business 1" },
-    { id: 2, businessName: "Business 2" },
-    { id: 3, businessName: "Business 3" },
-    { id: 4, businessName: "Business 4" },
-    { id: 5, businessName: "Business 5" },
-    { id: 6, businessName: "Business 6" },
-  ];
+  const navigation = useNavigation();
 
   const handleReportPress = (businessName) => {
     // Handle press for a request (e.g., navigate to details screen)
     console.log("Pressed on request:", businessName);
   };
 
+  const getReports = async () => {
+    setReportDetails("");
+    const q = query(collection(db, "reports"));
+    const snapshot = await getDocs(q);
+    snapshot.forEach((doc) => {
+      setReportDetails((reportDetails) => [...reportDetails, doc.data()]);
+      console.log(doc.data());
+    });
+  };
+
+  useEffect(() => {
+    getReports();
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Reports</Text>
       <ScrollView style={styles.scrollContainer}>
-        {reports.map((report) => (
-          <ReportBox
-            key={report.id}
-            businessName={report.businessName}
-            onPress={() => handleReportPress(report.businessName)}
-          />
-        ))}
+        {reportDetails &&
+          reportDetails.map((item) => (
+            <ReportBox
+              buyer={item.email}
+              title={item.title}
+              id={item.id}
+              onPress={() => navigation.navigate("report-detail", { item })}
+            />
+          ))}
       </ScrollView>
     </View>
   );
@@ -51,5 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Reports;
-
+export default Report;

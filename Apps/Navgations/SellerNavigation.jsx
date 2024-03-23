@@ -10,6 +10,8 @@ import { Text } from "react-native";
 import AddProduct from "../Screens/Seller/AddProduct";
 const Tab = createBottomTabNavigator();
 import { useAuth } from "../context";
+// import SellerDashboard  from "../Screens/Seller/SellerDashboard";
+import SellerProfileAfterAuth from "../Screens/Seller/SellerProfileAfterAuth";
 
 export default function SellerNavigation() {
   const [approved, setApproved] = useState(false);
@@ -69,7 +71,7 @@ export default function SellerNavigation() {
       />
       <Tab.Screen
         name="profile"
-        component={ProfileScreen}
+        component={isApproved ? SellerProfileAfterAuth: ProfileScreen}
         options={{
           tabBarLabel: ({ color }) => (
             <Text style={{ color: isApproved ? color : "blue", fontSize: 12, marginBottom: 3 }}>
