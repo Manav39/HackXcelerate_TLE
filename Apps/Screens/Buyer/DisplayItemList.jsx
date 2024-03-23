@@ -10,6 +10,7 @@ export default function DisplayItemList({ itemList }) {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
+      <View>
       <FlatList
         data={itemList}
         numColumns={2}
@@ -36,6 +37,11 @@ export default function DisplayItemList({ itemList }) {
           </TouchableOpacity>
         )}
       />
+      </View>
+      
+      <View style={ styles.container }>
+        <Text>Recommended Products</Text>
+      </View>
     </View>
   );
 }

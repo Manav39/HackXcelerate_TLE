@@ -7,7 +7,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   Button,
-  ToastAndroid
+  ToastAndroid,
+  ScrollView
 } from "react-native";
 import { useAuth } from "./context";
 import { db } from "./firebase";
@@ -17,6 +18,7 @@ const ProductDetails = ({ route }) => {
   const { email, userName, role } = useAuth();
   const { product } = route.params;
   const [quantity, setQuantity] = useState(1);
+  const { category } = product.category;
 
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -50,34 +52,75 @@ const ProductDetails = ({ route }) => {
   };
 
   return (
-    <View style={styles.container}>
-    <Image source={{ uri: product.imageURL }} style={styles.image} />
-    <View style={styles.details}>
-      <Text style={styles.productName}>{product.productName}</Text>
-      <Text style={styles.price}>Price: ${product.price}</Text>
-      <View style={styles.quantityContainer}>
-        <Text style={styles.quantityLabel}>Quantity:</Text>
-        <TouchableOpacity onPress={decreaseQuantity} style={styles.quantityButton}>
-          <Text>-</Text>
-        </TouchableOpacity>
-        <Text style={styles.quantity}>{quantity}</Text>
-        <TouchableOpacity onPress={increaseQuantity} style={styles.quantityButton}>
-          <Text>+</Text>
-        </TouchableOpacity>
+    <View style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <Image source={{ uri: product.imageURL }} style={styles.image} />
+        <View style={styles.details}>
+          <Text style={styles.productName}>{product.productName}</Text>
+          <Text style={styles.price}>Price: ₹{product.price}</Text>
+          <View style={styles.quantityContainer}>
+            <Text style={styles.quantityLabel}>Quantity:</Text>
+            <TouchableOpacity onPress={decreaseQuantity} style={styles.quantityButton}>
+              <Text>-</Text>
+            </TouchableOpacity>
+            <Text style={styles.quantity}>{quantity}</Text>
+            <TouchableOpacity onPress={increaseQuantity} style={styles.quantityButton}>
+              <Text>+</Text>
+            </TouchableOpacity>
+          </View>
+          <Button
+            title="Add to Cart"
+            onPress={addToCart}
+            buttonStyle={styles.addButton} 
+          />
+        </View>
       </View>
-      <Button
-        title="Add to Cart"
-        onPress={addToCart}
-        buttonStyle={styles.addButton} 
-      />
+
+      <View style={{ alignSelf: "center" }}>
+        <Text style= {{ fontSize: 18, fontWeight: "bold" }}>
+          Recommended Products
+        </Text>
+
+        {/* <ScrollView className="mt-20">
+          <View style={{ flexDirection: "row", alignSelf: "center" }}>
+            <Text style={{ fontSize:35, alignSelf: "center", marginBottom: 30 }}>Cart </Text>
+            <Feather style={{ marginTop:15 }} name="shopping-cart" size={24} color="black" />
+          </View>
+          {items &&
+            items.map((item, index) => (
+              <TouchableOpacity
+                key={index}
+                style={ styles.container }
+                // onPress={() => handleProductPress(product)}
+              >
+                <View style={ styles.cart }>
+                  <View>
+                    <Image
+                      source={{
+                        uri: item.productName.imageURL,
+                      }}
+                      style={styles.image}
+                      className="w-10 h-2"
+                    />
+                  </View>
+                  <View style={{ marginLeft: 40 }}>
+                    <Text style={{ fontSize: 24 }}>Name: {item.productName.productName}</Text>
+                    <Text style={{ fontSize: 18 }}>Qty: {item.quantity}</Text>
+                    <Text style={{ fontSize: 18 }}>Total Price:  ₹{item.productName.price * item.quantity}</Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            ))}
+        </ScrollView> */}
+
+      </View>
     </View>
-  </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: "50%",
+    marginTop: "15%",
     marginHorizontal: 20,
     justifyContent: "center",
     backgroundColor: 'white', 
