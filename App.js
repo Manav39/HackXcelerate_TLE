@@ -7,6 +7,8 @@ import BuyerScreen from "./Apps/Screens/BuyerScreen";
 import AdminScreen from "./Apps/Screens/AdminScreen";
 import SellerScreen from "./Apps/Screens/SellerScreen";
 import { AuthProvider } from "./Apps/context";
+import SellerDashboard from "./Apps/Screens/Seller/SellerDashboard";
+import SellerAllProducts from "./Apps/Screens/Seller/SellerAllProducts";
 const stack = createNativeStackNavigator();
 
 export default function App() {
@@ -23,6 +25,8 @@ export default function App() {
           <stack.Screen name="Buyer" component={BuyerScreen} />
           <stack.Screen name="Admin" component={AdminScreen} />
           <stack.Screen name="Seller" component={SellerScreen} />
+          <stack.Screen name="Dashboard" component={SellerDashboard} />
+          <stack.Screen name="ViewProducts" component={SellerAllProducts} />
         </stack.Navigator>
       </NavigationContainer>
     </AuthProvider>
