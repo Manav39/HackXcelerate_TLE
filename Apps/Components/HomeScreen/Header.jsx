@@ -1,13 +1,33 @@
 import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../../context";
 import { Octicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
+import { collection, getDocs, where } from 'firebase/firestore';
+import { db } from "../../firebase";
 
 export default function Header() {
   const navigation = useNavigation();
   const { email, role, userName } = useAuth();
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+
+  const searchProducts = async (query) => {
+    try {
+      console.log("query = " + query);
+      const productsCollection = collection(db, 'products'); 
+      const snapshot = await getDocs(productsCollection, where('productName', '==', query)); 
+      setSearchResults(
+        snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+      );
+      console.log(searchResults);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <View>
       <View className="flex flex-row justify-between">
@@ -33,8 +53,22 @@ export default function Header() {
         <TextInput
           placeholder="Search For Products"
           className="ml-2 text-[18px]"
-          onChangeText={(value) => console.log(value)}
+          onChangeText={(value) => {
+            setSearchQuery(value);
+            searchProducts(value); 
+          }}
         />
+      </View>
+      <View>
+        {searchResults.length > 0 && (
+          <View className="searchResultsContainer">
+            {searchResults.map((product) => (
+              <TouchableOpacity key={product.id}>
+                <Text>{product.name}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
       </View>
     </View>
   );

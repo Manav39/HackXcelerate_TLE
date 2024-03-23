@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity, ToastAndroid } from "react-native";
 import React from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { addDoc, collection } from "firebase/firestore";
@@ -13,6 +13,7 @@ export default function ReportDetail() {
       productName: params.item.product.productName,
       title: "Warning for admin",
     });
+    ToastAndroid.show("Warning sent via In app Notification", ToastAndroid.SHORT)
     console.log("Warning Sent");
   };
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, ScrollView, TouchableOpacity, Image } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet, ScrollView, TouchableOpacity, Image, ToastAndroid } from "react-native";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../../context";
@@ -16,20 +16,21 @@ const AddProduct = () => {
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  
 
   const handleAddProduct = async () => {
     try {
       await addDoc(collection(db, "products"), {
         productName: productName,
         quantity: quantity,
-        imageURL: imageURL,
+        imageURL: "https://img.freepik.com/free-photo/high-angle-indian-spices-with-spoons_23-2148747653.jpg?t=st=1711078502~exp=1711082102~hmac=2c51a12bf709bbf051ce8e9fe1854d4f04b33c034c85cf98df5bb57bbbf324d5&w=740",
         category: category,
         ingredients: ingredients,
         email: email,
         userName: userName,
         price: price,
       });
-
+      ToastAndroid.show("Product added successfully", ToastAndroid.SHORT)
       setSuccessMessage("Product added successfully!");
       clearForm();
     } catch (error) {

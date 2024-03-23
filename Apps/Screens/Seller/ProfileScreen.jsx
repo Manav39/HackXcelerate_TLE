@@ -65,6 +65,7 @@ export default function ProfileScreen() {
   };
 
   const waitForConfirmation = async() => {
+    setWaitingForConfirmation(true);
     try {
       const resp = await fetch(image);
       const blob = await resp.blob();

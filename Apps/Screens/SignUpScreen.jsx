@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, TextInput, Button, StyleSheet, Image } from 'react-native'
+import { View, Text, TextInput, Button, StyleSheet, Image, ToastAndroid } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { FirebaseAuth } from '../firebase'
 import { db } from '../firebase'
@@ -18,6 +18,7 @@ export default function SignUpScreen() {
     // Implement sign up logic here
     await createUserWithEmailAndPassword(FirebaseAuth, email, password)
       .then((cred) => {
+        ToastAndroid.show("Account Created, please login.", ToastAndroid.SHORT);
         console.log("Success");
       })
       .catch((err) => console.error(err));
@@ -30,7 +31,6 @@ export default function SignUpScreen() {
         role: role,
         isApproved: false,
       });
-
       console.log("User added to Firestore successfully!");
     } catch (error) {
       console.error("Error adding user to Firestore: ", error);
