@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { getDocs, collection } from "firebase/firestore";
 import { db } from "../../firebase";
 import DisplayItemList from "./DisplayItemList";
+import { AntDesign } from '@expo/vector-icons';
 
 export default function ExploreScreen({ navigation }) {
   const [products, setProducts] = useState([]);
@@ -39,7 +40,11 @@ export default function ExploreScreen({ navigation }) {
     //       </TouchableOpacity>
     //     ))}
     // </View>
-    <View style={{ marginTop: 20 }}>
+    <View style={{ marginTop: 60 }}>
+      <View style={{ flexDirection: "row", alignSelf: "center" }}>
+        <Text style={{ fontWeight: "bold", fontSize: 24, alignSelf: "center", marginBottom: 20 }}>Trending Products</Text>
+        <AntDesign name="star" size={24} color="black" style={{ marginLeft: 5, marginTop: 5 }}/>
+      </View>
       <DisplayItemList itemList={products} />
     </View>
   );
