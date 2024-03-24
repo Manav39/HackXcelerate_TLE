@@ -35,12 +35,12 @@ const SellerAllProducts = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View className="mt-10" style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerText}>All Products</Text>
-        <TouchableOpacity onPress={handlePlusClick}>
+        {/* <TouchableOpacity onPress={handlePlusClick}>
           <Text style={styles.addIcon}>+</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
 
       <ScrollView style={styles.productList}>
