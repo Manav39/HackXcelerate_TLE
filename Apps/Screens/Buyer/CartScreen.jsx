@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image, Button, ScrollView, Linking } from "react-native";
 import React, { useEffect, useState } from "react";
 import { db } from "../../firebase";
-import { getDocs, collection, query, where } from "firebase/firestore";
+import { getDocs, collection, query, where, onSnapshot } from "firebase/firestore";
 import { useAuth } from "../../context";
 import { Feather } from '@expo/vector-icons';
 
@@ -41,9 +41,28 @@ export default function CartScreen() {
     }
   };
 
+  const calculateTotalPrice = (items) => {
+    let total = 0;
+    items.forEach((item) => {
+      total += item.productName.price * item.quantity;
+    });
+    return total;
+  };
+
   useEffect(() => {
     getItems();
+    const unsubscribe = onSnapshot(collection(db, "carts"), where("email", "==", email), (snapshot) => {
+      const updatedItems = [];
+      snapshot.forEach((doc) => {
+        updatedItems.push(doc.data());
+      });
+      setItems(updatedItems);
+      setTotalPrice(calculateTotalPrice(updatedItems)); // Update total price as well
+    });
+    // Cleanup function to unsubscribe when the component unmounts
+    return () => unsubscribe();
   }, []);
+
   const getItems = async () => {
     setItems("");
     const q = query(collection(db, "carts"), where("email", "==", email));

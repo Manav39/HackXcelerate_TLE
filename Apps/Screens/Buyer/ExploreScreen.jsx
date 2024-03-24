@@ -43,7 +43,7 @@ export default function ExploreScreen({ navigation }) {
     <View style={{ marginTop: 60 }}>
       <View style={{ flexDirection: "row", alignSelf: "center" }}>
         <Text style={{ fontWeight: "bold", fontSize: 24, alignSelf: "center", marginBottom: 20 }}>Trending Products</Text>
-        <AntDesign name="star" size={24} color="black" style={{ marginLeft: 5, marginTop: 5 }}/>
+        <AntDesign name="star" size={24} color="black" style={{ marginLeft: 5 }}/>
       </View>
       <DisplayItemList itemList={products} />
     </View>

@@ -7,6 +7,7 @@ import BuyerNotify from "../Screens/Buyer/BuyerNotify";
 import UserQuery from "../Screens/Buyer/UserQuery";
 import CategoryListItem from "../Screens/Buyer/CategoryListItem";
 import ViewQueryAnswer from "../Screens/Buyer/ViewQueryAnswer";
+import SellerNotify from "../Screens/Seller/SellerNotify";
 
 const stack = createNativeStackNavigator();
 

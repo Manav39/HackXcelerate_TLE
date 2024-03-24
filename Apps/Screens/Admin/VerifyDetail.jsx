@@ -1,13 +1,54 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity, ToastAndroid } from "react-native";
 import { useRoute } from "@react-navigation/native";
+import { useAuth } from "../../context";
+import { collection, query, where, getDocs, deleteDoc, addDoc } from 'firebase/firestore';
+import { db } from "../../firebase";
 
 export default function VerifyDetail() {
   const { params } = useRoute();
+  const { setWaitingForConfirmation, setIsApproved } = useAuth();
 
-  const handleAccept = () => {
+  const handleAccept = async() => {
     // Handle accept logic
+    setWaitingForConfirmation(false);
+    setIsApproved(true);
     console.log("Accepted:", params.item.userName);
+
+    try{
+      const productsCollection = collection(db, 'verify');
+      const q = query(productsCollection, where("email", '==', params.item.email));
+      const snapshot = await getDocs(q);
+
+      if (snapshot.empty) {
+        console.log("No matching documents found.");
+        return; 
+      }
+      snapshot.forEach(async (doc) => {
+        await deleteDoc(doc.ref);
+      });
+      ToastAndroid.show("User accepted successfully", ToastAndroid.SHORT)
+
+      // addind seller to users
+      await addDoc(collection(db, "users"), {
+        username: params.item.userName,
+        businessName: params.item.businessName,
+        email: params.item.email,
+        imageUrl: params.item.imageUrl,
+        phoneNumber:  params.item.phoneNumber,
+        latitude:  params.item.latitude,
+        longitude:  params.item.longitude,
+      });
+      ToastAndroid.show(
+        "Seller added successfully!",
+        ToastAndroid.SHORT
+      );
+      console.log("Seller added to users successfully!");
+      console.log("Matching documents deleted successfully!");
+    }catch(err) {
+      console.log(err);
+    }
+
   };
 
   const handleReject = () => {

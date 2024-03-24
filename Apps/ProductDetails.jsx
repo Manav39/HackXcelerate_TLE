@@ -70,7 +70,6 @@ const ProductDetails = ({ route }) => {
   };
 
   const handleEdit = (product) => {
-    setEditedProduct(product);
     setEditModalVisible(true);
   };
 
@@ -107,60 +106,67 @@ const ProductDetails = ({ route }) => {
               onPress={decreaseQuantity}
               style={styles.quantityButton}
             >
-              <Text>-</Text>
+              <Text style={{color:'#ffffff'}}>-</Text>
             </TouchableOpacity>
             <Text style={styles.quantity}>{quantity}</Text>
             <TouchableOpacity
               onPress={increaseQuantity}
               style={styles.quantityButton}
             >
-              <Text>+</Text>
+              <Text style={{color:'#ffffff'}}>+</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              className="ml-40"
+              onPress={() => setEditModalVisible(true)}
+            >
+              <MaterialIcons name="report" size={30} color="red" />
             </TouchableOpacity>
           </View>
-          <Button
-            title="Add to Cart"
-            onPress={addToCart}
-            buttonStyle={styles.addButton}
-          />
+          <TouchableOpacity
+  onPress={addToCart}
+  style={[styles.addButton, { backgroundColor: "#FC6736" }]}
+>
+  <Text style={styles.addButtonText}>Add to Cart</Text>
+</TouchableOpacity>
+
         </View>
       </View>
-
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={editModalVisible}
+        onRequestClose={() => setEditModalVisible(false)}
+      >
+        <View style={styles.modalView}>
+          <ScrollView contentContainerStyle={styles.modalContent}>
+            <Text style={styles.modalHeaderText}>Report Title</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Title"
+              onChangeText={(text) => setTitle(text)}
+              value={title}
+            />
+            <Text style={styles.modalHeaderText}>Report Description</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Description"
+              onChangeText={(text) => setDesc(text)}
+              value={desc}
+            />
+            <View style={styles.buttonContainer}>
+              <Button title="Submit" onPress={handleSaveEdit} />
+              <Button
+                title="Cancel"
+                onPress={() => setEditModalVisible(false)}
+              />
+            </View>
+          </ScrollView>
+        </View>
+      </Modal>
       <View style={{ alignSelf: "center" }}>
         <Text style={{ fontSize: 18, fontWeight: "bold" }}>
           Recommended Products
         </Text>
-
-        {/* <ScrollView className="mt-20">
-          <View style={{ flexDirection: "row", alignSelf: "center" }}>
-            <Text style={{ fontSize:35, alignSelf: "center", marginBottom: 30 }}>Cart </Text>
-            <Feather style={{ marginTop:15 }} name="shopping-cart" size={24} color="black" />
-          </View>
-          {items &&
-            items.map((item, index) => (
-              <TouchableOpacity
-                key={index}
-                style={ styles.container }
-                // onPress={() => handleProductPress(product)}
-              >
-                <View style={ styles.cart }>
-                  <View>
-                    <Image
-                      source={{
-                        uri: item.productName.imageURL,
-                      }}
-                      style={styles.image}
-                      className="w-10 h-2"
-                    />
-                  </View>
-                  <View style={{ marginLeft: 40 }}>
-                    <Text style={{ fontSize: 24 }}>Name: {item.productName.productName}</Text>
-                    <Text style={{ fontSize: 18 }}>Qty: {item.quantity}</Text>
-                    <Text style={{ fontSize: 18 }}>Total Price:  ₹{item.productName.price * item.quantity}</Text>
-                  </View>
-                </View>
-              </TouchableOpacity>
-            ))}
-        </ScrollView> */}
       </View>
     </View>
   );
@@ -169,6 +175,7 @@ const ProductDetails = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: "15%",
+    padding: 10,
     marginHorizontal: 20,
     justifyContent: "center",
     backgroundColor: "white",
@@ -186,6 +193,7 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: 200,
+    borderRadius: 10,
   },
   details: {
     padding: 10,
@@ -216,8 +224,18 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   addButton: {
-    backgroundColor: "#FC6736",
+    backgroundColor: "transparent",
     borderRadius: 5,
+    borderWidth: 1,
+    borderColor: "#FC6736",
+    paddingVertical: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  addButtonText: {
+    color: "#ffffff",
+    fontSize: 16,
+    fontWeight: "bold",
   },
   modalView: {
     flex: 1,
@@ -253,5 +271,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
+
 
 export default ProductDetails;

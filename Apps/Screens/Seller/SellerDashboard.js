@@ -12,17 +12,17 @@ const SellerDashboard = () => {
         <View style={styles.overallInfo}>
           <View style={styles.innerContain}>
             <View style={styles.orders}>
-              <Text>1,200</Text>
+              <Text>10</Text>
               <Text>Orders</Text>
             </View>
 
             <View style={styles.gross}>
-              <Text>$12,500</Text>
+              <Text>₹10000</Text>
               <Text>gross</Text>
             </View>
 
             <View style={styles.pending}>
-              <Text>940</Text>
+              <Text>5</Text>
               <Text>pending</Text>
             </View>
           </View>
@@ -41,117 +41,98 @@ const SellerDashboard = () => {
 
           <View>
             <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Lavang</Text>
-            <Text style={{ fontSize: 15 }}>Good for health</Text>
+            {/* <Text style={{ fontSize: 15 }}>Good for health</Text> */}
           </View>
 
           <View style={{ flex: 1, justifyContent: 'center' }}>
-            <Text style={{ textAlign: 'right' }}>$140.50</Text>
+            <Text style={{ textAlign: 'right' }}>₹140.50/5kg</Text>
           </View>
         </View>
 
         <View style={styles.order1}>
           <View>
             <Image style={{ height: 50, width: 50, borderRadius: 50 }} source={{
-              uri: 'https://th.bing.com/th/id/OIP.8XndbfQWVrtefJw4MJyOsAAAAA?rs=1&pid=ImgDetMain'
+              uri: 'https://www.justgotochef.com/uploads/1565337647-Coriander%20powderLanding.png'
             }}></Image>
           </View>
 
           <View>
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Lavang</Text>
-            <Text style={{ fontSize: 15 }}>Good for health</Text>
+            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Coriander Powder</Text>
+            {/* <Text style={{ fontSize: 15 }}>Good for health</Text> */}
           </View>
 
           <View style={{ flex: 1, justifyContent: 'center' }}>
-            <Text style={{ textAlign: 'right' }}>$140.50</Text>
+            <Text style={{ textAlign: 'right' }}>₹20.0/1kg</Text>
           </View>
         </View>
 
         <View style={styles.order1}>
           <View>
             <Image style={{ height: 50, width: 50, borderRadius: 50 }} source={{
-              uri: 'https://th.bing.com/th/id/OIP.8XndbfQWVrtefJw4MJyOsAAAAA?rs=1&pid=ImgDetMain'
+              uri: 'https://th.bing.com/th/id/R.9675a0e49b2c55e371b3891fcb19e785?rik=OmG3fyDiWMJlBQ&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2fe%2fe6%2fFenugreek_seeds.jpg&ehk=gEimYybmoyoAeWpqH0AthqyGM%2bcnHzNAH6k4riB5K6o%3d&risl=&pid=ImgRaw&r=0'
             }}></Image>
           </View>
 
           <View>
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Lavang</Text>
-            <Text style={{ fontSize: 15 }}>Good for health</Text>
+            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Fenugeek Seeds</Text>
+            {/* <Text style={{ fontSize: 15 }}>Good for health</Text> */}
           </View>
 
           <View style={{ flex: 1, justifyContent: 'center' }}>
-            <Text style={{ textAlign: 'right' }}>$140.50</Text>
+            <Text style={{ textAlign: 'right' }}>40.50/100g</Text>
           </View>
         </View>
 
         <View style={styles.order1}>
           <View>
             <Image style={{ height: 50, width: 50, borderRadius: 50 }} source={{
-              uri: 'https://th.bing.com/th/id/OIP.8XndbfQWVrtefJw4MJyOsAAAAA?rs=1&pid=ImgDetMain'
+              uri: 'https://th.bing.com/th/id/OIP.Z7EJ_faBO2h3L9mTgfkx2gHaJ4?rs=1&pid=ImgDetMain'
             }}></Image>
           </View>
 
           <View>
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Lavang</Text>
-            <Text style={{ fontSize: 15 }}>Good for health</Text>
+            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Lemon Chutney</Text>
+            {/* <Text style={{ fontSize: 15 }}>Good for health</Text> */}
           </View>
 
           <View style={{ flex: 1, justifyContent: 'center' }}>
-            <Text style={{ textAlign: 'right' }}>$140.50</Text>
+            <Text style={{ textAlign: 'right' }}>₹40.50/100g</Text>
           </View>
         </View>
 
         <View style={styles.order1}>
           <View>
             <Image style={{ height: 50, width: 50, borderRadius: 50 }} source={{
-              uri: 'https://th.bing.com/th/id/OIP.8XndbfQWVrtefJw4MJyOsAAAAA?rs=1&pid=ImgDetMain'
+              uri: 'https://th.bing.com/th/id/OIP.emvemHvP9Tn0mqBJT-uAAQHaE8?rs=1&pid=ImgDetMain'
             }}></Image>
           </View>
 
           <View>
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Lavang</Text>
-            <Text style={{ fontSize: 15 }}>Good for health</Text>
+            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Cumin Seeds</Text>
+            {/* <Text style={{ fontSize: 15 }}>Good for health</Text> */}
           </View>
 
           <View style={{ flex: 1, justifyContent: 'center' }}>
-            <Text style={{ textAlign: 'right' }}>$140.50</Text>
+            <Text style={{ textAlign: 'right' }}>₹20/0.5kg</Text>
           </View>
         </View>
 
         <View style={styles.order1}>
           <View>
             <Image style={{ height: 50, width: 50, borderRadius: 50 }} source={{
-              uri: 'https://th.bing.com/th/id/OIP.8XndbfQWVrtefJw4MJyOsAAAAA?rs=1&pid=ImgDetMain'
+              uri: 'https://www.dwarakaorganic.com/wp-content/uploads/2022/02/Bhel-Puri-2000x1333.jpg'
             }}></Image>
           </View>
 
           <View>
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Lavang</Text>
-            <Text style={{ fontSize: 15 }}>Good for health</Text>
+            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Chaat Masala</Text>
+            {/* <Text style={{ fontSize: 15 }}>Good for health</Text> */}
           </View>
 
           <View style={{ flex: 1, justifyContent: 'center' }}>
-            <Text style={{ textAlign: 'right' }}>$140.50</Text>
+            <Text style={{ textAlign: 'right' }}>₹90/bottle</Text>
           </View>
         </View>
-
-         <View style={styles.order1}>
-          <View>
-            <Image style={{ height: 50, width: 50, borderRadius: 50 }} source={{
-              uri: 'https://th.bing.com/th/id/OIP.8XndbfQWVrtefJw4MJyOsAAAAA?rs=1&pid=ImgDetMain'
-            }}></Image>
-          </View>
-
-          <View>
-            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Lavang</Text>
-            <Text style={{ fontSize: 15 }}>Good for health</Text>
-          </View>
-
-          <View style={{ flex: 1, justifyContent: 'center' }}>
-            <Text style={{ textAlign: 'right' }}>$140.50</Text>
-          </View>
-        </View>
-        
-
         
 
       </View>
