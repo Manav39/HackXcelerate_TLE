@@ -4,6 +4,7 @@ import { useAuth } from "../../context";
 import { Octicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
+import { FontAwesome5 } from '@expo/vector-icons';
 
 export default function Header() {
   const navigation = useNavigation();
@@ -35,6 +36,9 @@ export default function Header() {
           className="ml-2 text-[18px]"
           onChangeText={(value) => console.log(value)}
         />
+        <TouchableOpacity onPress={() =>navigation.navigate("filter")}>
+           <FontAwesome5 name="filter" size={24} color="black" />
+        </TouchableOpacity>
       </View>
     </View>
   );

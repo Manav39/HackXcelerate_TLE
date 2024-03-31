@@ -11,14 +11,13 @@ import SellerDashboard from "./Apps/Screens/Seller/SellerDashboard";
 import SellerAllProducts from "./Apps/Screens/Seller/SellerAllProducts";
 import { useEffect } from "react";
 const stack = createNativeStackNavigator();
-import { LogBox } from 'react-native';
+import { LogBox } from "react-native";
 
 export default function App() {
-
   useEffect(() => {
-    LogBox.ignoreLogs(['Warning: ...']);
+    LogBox.ignoreLogs(["Warning: ..."]);
     LogBox.ignoreAllLogs();
-  }, [])
+  }, []);
 
   return (
     <AuthProvider>
